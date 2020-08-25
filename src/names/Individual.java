@@ -13,5 +13,16 @@ public class Individual
         this.count = count;
     }
 
+    public int getCount()
+    {
+        return count;
+    }
+
+    @Override
+    public String toString()
+    {
+        return name;
+    }
+
 
 }
