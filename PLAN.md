@@ -15,6 +15,11 @@ This is the link to the [assignment](http://www.cs.duke.edu/courses/compsci307/c
 
 ### Likely you may not even need a data structure to answer the questions below, but what about some of the questions in Part 2?
 
+|                 |     2D Array      | Nested HashMap |   LinkedHashMap   |
+|:---------------:|:-----------------:|:--------------:|:-----------------------:|
+| **Description** |    2D Array where the rows of the array refer to different individuals and the columns refer to a given individual's name, gender, and the number of occurrences of their name     | Nested HashMap where the first key corresponds to the first letter in an individual's name. The value of that key would then be a HashMap whose key would be an individual's name, and whose value would be the number of occurrences of the individual's name             |  LinkedHashMap where the key corresponds to an individual's name and the value corresponds to the number of occurrences for the given individual |
+|     **Pros**     | The ranking of the names is preserved |      O(1) complexity for retrieving values. Also, as many of the questions in [Part 2](https://www2.cs.duke.edu/courses/fall20/compsci307d/assign/01_data/part2.php) deal with the first letter of the individual's name, incorporating this into the utilized data structure simplifies the coming tasks       |   O(1) complexity for retrieving values. Also, preserves insertion order which thus would preserve rank of the occurrences of names. This is important as many of the questions in [Part 2](https://www2.cs.duke.edu/courses/fall20/compsci307d/assign/01_data/part2.php) deal with the ranking of names.   |
+|     **Cons**     |     With 2D arrays, O(*row\*column*) complexity for traversal      |   With HashMaps, insertion order is not preserved, resulting in the potential loss of rank              |   With LinkedHashMaps, most memory is consumed as a doubly-linked list is maintained, running through all entries   |
 
 ### What are some ways you could test your code to make sure it is giving the correct answer (think beyond just choosing "lucky" parameter values)?
 
