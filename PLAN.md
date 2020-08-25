@@ -29,12 +29,32 @@ This is the link to the [assignment](http://www.cs.duke.edu/courses/compsci307/c
 |     **Cons**     |     With 2D arrays, O(*row\*column*) complexity for traversal      |   With HashMaps, insertion order is not preserved, resulting in the potential loss of rank              |   With LinkedHashMaps, most memory is consumed as a doubly-linked list is maintained, running through all entries   |
 
 ### What are some ways you could test your code to make sure it is giving the correct answer (think beyond just choosing "lucky" parameter values)?
+- Create a custom test file with one letter names and relatively easy number of occurrences to sum
 
+| Example Test File | 
+| ------ |
+| A,M,100 |
+| A,M,50 |
+| A,M,25 |
 
 
 ### What kinds of things make the second question harder to test?
+- More iteration is required as half of the asnwer cannot be instantly determined from the first line as in the first question
+- More information must be tracked and returned
 
 ### What kind of errors might you expect to encounter based on the questions or in the dataset?
+- Gender given is not represented in data set   
+    - Only M/F in data set, not both
+- Year given is not in range of data set        
+    - 2020
+- Year given is not a valid year                
+    - 2*!9
+- Gender given is not M or F                    
+    - X
+- Letter given is not a valid letter            
+    - ^
+- 
+
 
 ### How would you detect those errors and what would a reasonable "answer" be in such cases?
 
