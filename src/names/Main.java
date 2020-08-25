@@ -8,7 +8,8 @@ public class Main
 
     public static void main (String[] args)
     {
-        new yearOfBirthFile(1900).read();
+        new YearOfBirthFile(1900).read();
+        new YearOfBirthFile(1900,"M",'X');
 
     }
 
