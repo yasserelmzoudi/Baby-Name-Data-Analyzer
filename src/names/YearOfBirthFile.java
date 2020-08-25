@@ -27,7 +27,7 @@ public class YearOfBirthFile
     {
         try 
         {
-            Path path = Paths.get(Main.class.getClassLoader().getResource(myFile).toURI());
+            Path path = Paths.get(BabyNames.class.getClassLoader().getResource(myFile).toURI());
             for (String line : Files.readAllLines(path)) 
             {
                 Individual person = new Individual(line);
