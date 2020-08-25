@@ -5,6 +5,13 @@ This is the link to the [assignment](http://www.cs.duke.edu/courses/compsci307/c
 
 
 ### What is the answer to the two questions below for the data file yob1900.txt (pick a letter that makes it easy to answer)? 
+1.  Top Ranked 1900 Female Name:  **Mary**
+
+    Top Ranked 1900 Male Name:    **John**
+
+1.  Number of 1900 Males Names Starting with 'X':                  **0**
+
+    Total Number of 1900 Male Babies with Names Starting with 'X':  **0**
 
 ### Describe the algorithm you would use to answer each one.
 1. Given a year, what is the ***top ranked*** name for each gender (M and F)?
