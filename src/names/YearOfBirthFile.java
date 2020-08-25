@@ -25,12 +25,20 @@ public class YearOfBirthFile
 
     public void read()
     {
+        String name = "";
+        String gender = "";
+        int count = 0;
+
         try 
         {
             Path path = Paths.get(BabyNames.class.getClassLoader().getResource(myFile).toURI());
             for (String line : Files.readAllLines(path)) 
             {
-                Individual person = new Individual(line);
+                name = line.split(",")[0];
+                gender = line.split(",")[1];
+                count = Integer.parseInt(line.split(",")[2]);
+
+                Individual person = new Individual(name, gender, count);
                 myIndividuals.add(person);
             }
         }
