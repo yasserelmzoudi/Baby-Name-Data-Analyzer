@@ -64,15 +64,19 @@ public class BabyNames
 
     public static void main(String[] args) throws Exception {
         List<Integer> years = new ArrayList<>();
+
+        //Test Year
         years.add(1111);
 
         BabyNames baby = new BabyNames(years);
         System.out.println(baby.data.get(0).getMyYear());
         baby.read();
-        System.out.println(baby.data.get(0).topRankedName("F"));
-        System.out.println(baby.data.get(0).getGenderChangeIndex());
-        System.out.println(baby.data.get(0).getNameRank(1, "M"));
-        System.out.println(baby.data.get(0).nameCount("Jacob", "M"));
-        System.out.println(baby.data.get(0).numNamesLetter("M", 'A'));
+
+        System.out.println("Top Ranked Female Name: " + baby.data.get(0).topRankedName("F"));
+        System.out.println("Gender Switches on Line: " + baby.data.get(0).getGenderChangeIndex() + 1);
+        System.out.println("Top Ranked Male Name: " + baby.data.get(0).getNameRank(1, "M"));
+        System.out.println("Total Male babies whose Name Starts with 'A': " + baby.data.get(0).totalBabies("M", 'A'));
+        System.out.println("Total Names Starting with 'A': " + baby.data.get(0).namesLetter("M", 'A').size());
+
     }
 }
