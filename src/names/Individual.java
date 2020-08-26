@@ -1,5 +1,7 @@
 package names;
 
+import java.util.Objects;
+
 public class Individual
 {
     private String name;
@@ -49,5 +51,11 @@ public class Individual
 
         Individual person = (Individual)other;
         return (name.equals(person.name)) && (gender.equals(person.gender)) && (count == person.count);
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return Objects.hash(name, gender, count);
     }
 }

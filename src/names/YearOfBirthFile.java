@@ -55,7 +55,6 @@ public class YearOfBirthFile
     public int nameCount(String name, String gender)
     {
         int count = 0;
-
         for (Individual person: myIndividuals)
         {
             if (person.getName().equals(name) && person.getGender().equals(gender))
@@ -63,7 +62,6 @@ public class YearOfBirthFile
                 count = person.getCount();
             }
         }
-
         return count;
     }
 }
