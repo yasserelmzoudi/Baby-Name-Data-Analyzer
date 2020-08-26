@@ -13,6 +13,16 @@ public class Individual
         this.count = count;
     }
 
+    public String getName()
+    {
+        return name;
+    }
+
+    public String getGender()
+    {
+        return gender;
+    }
+
     public int getCount()
     {
         return count;
@@ -40,6 +50,4 @@ public class Individual
         Individual person = (Individual)other;
         return (name.equals(person.name)) && (gender.equals(person.gender)) && (count == person.count);
     }
-
-
 }

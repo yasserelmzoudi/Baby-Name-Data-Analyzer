@@ -50,6 +50,20 @@ public class YearOfBirthFile
         {
             throw new IllegalArgumentException("Individual already accounted for in List");
         }
+    }
 
+    public int nameCount(String name, String gender)
+    {
+        int count = 0;
+
+        for (Individual person: myIndividuals)
+        {
+            if (person.getName().equals(name) && person.getGender().equals(gender))
+            {
+                count = person.getCount();
+            }
+        }
+
+        return count;
     }
 }
