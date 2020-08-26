@@ -1,8 +1,5 @@
 package names;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,16 +7,23 @@ public class YearOfBirthFile
 {
     private List<Individual> myIndividuals;
     private int myYear;
+    private int genderChangeIndex;
 
     public YearOfBirthFile(int year)
     {
         myYear = year;
         myIndividuals = new ArrayList<>();
+        genderChangeIndex = 0;
     }
 
     public int getMyYear()
     {
         return myYear;
+    }
+
+    public void setGenderChangeIndex(int index)
+    {
+        genderChangeIndex = index;
     }
 
     public void add(Individual person)
@@ -46,6 +50,4 @@ public class YearOfBirthFile
         }
         return count;
     }
-
-    public int oppositeGenderStart()
 }
