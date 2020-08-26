@@ -71,4 +71,29 @@ public class YearOfBirthFile
     {
         return getNameRank(1, gender);
     }
+
+    public int numNamesLetter(String gender, char letter)
+    {
+        List<Individual> namesFirstLetter = new ArrayList<>();
+        for (Individual person: myIndividuals)
+        {
+            String name = person.getName();
+            if (name.charAt(0) == letter && person.getGender().equals(gender))
+            {
+                namesFirstLetter.add(person);
+            }
+        }
+        return totalCount(namesFirstLetter);
+    }
+
+    public int totalCount(List<Individual> people)
+    {
+        int totalCount = 0;
+        for (Individual person: people)
+        {
+            totalCount += person.getCount();
+        }
+        return totalCount;
+    }
+
 }
