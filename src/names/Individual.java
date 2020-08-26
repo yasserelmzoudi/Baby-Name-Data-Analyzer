@@ -24,5 +24,22 @@ public class Individual
         return name;
     }
 
+    @Override
+    public boolean equals(Object other)
+    {
+        if (this == other)
+        {
+            return true;
+        }
+
+        if (other == null || getClass() != other.getClass())
+        {
+            return false;
+        }
+
+        Individual person = (Individual)other;
+        return (name.equals(person.name)) && (gender.equals(person.gender)) && (count == person.count);
+    }
+
 
 }
