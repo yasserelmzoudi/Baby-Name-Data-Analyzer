@@ -59,4 +59,12 @@ public class BabyNames
             }
         }
     }
+
+    public static void main(String[] args) throws Exception {
+        List<Integer> years = new ArrayList<>();
+        years.add(2000);
+
+        BabyNames baby = new BabyNames(years);
+        System.out.println(baby.data.get(0).getMyYear());
+    }
 }
