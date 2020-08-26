@@ -50,4 +50,20 @@ public class YearOfBirthFile
         }
         return count;
     }
+
+    public String getNameRank(int rank, String gender)
+    {
+        int desiredIndex = rank - 1;
+
+        if (!myIndividuals.get(0).getGender().equals(gender))
+        {
+            desiredIndex += genderChangeIndex;
+        }
+        return myIndividuals.get(desiredIndex).getName();
+    }
+
+    public String topRankedName(String gender)
+    {
+        return getNameRank(1, gender);
+    }
 }
