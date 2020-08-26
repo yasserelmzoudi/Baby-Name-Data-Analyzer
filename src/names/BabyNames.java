@@ -34,6 +34,8 @@ public class BabyNames
             {
                 Path path = Paths.get(BabyNames.class.getClassLoader().getResource(currentFile).toURI());
                 List<String> readFile = Files.readAllLines(path);
+                String currentGender = readFile.get(0).split(",")[1];
+
                 for (int currentLine = 0; currentLine < readFile.size(); currentLine++)
                 {
                     String line = readFile.get(currentLine);
@@ -41,6 +43,11 @@ public class BabyNames
                     String name = line.split(",")[0];
                     String gender = line.split(",")[1];
                     int count = Integer.parseInt(line.split(",")[2]);
+
+                    if (!gender.equals(currentGender))
+                    {
+                        dataFile.setGenderChangeIndex(currentLine);
+                    }
 
                     Individual person = new Individual(name, gender, count);
                     dataFile.add(person);
