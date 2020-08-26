@@ -19,32 +19,36 @@ public class YearOfBirthFile
         myFile = "yob" + year + ".txt";
     }
 
-    public YearOfBirthFile(int i, String m, char x) {
-    }
-
-
-    public void read()
+    public void read() throws Exception
     {
-        String name = "";
-        String gender = "";
-        int count = 0;
-
         try 
         {
             Path path = Paths.get(BabyNames.class.getClassLoader().getResource(myFile).toURI());
             for (String line : Files.readAllLines(path)) 
             {
-                name = line.split(",")[0];
-                gender = line.split(",")[1];
-                count = Integer.parseInt(line.split(",")[2]);
+                String name = line.split(",")[0];
+                String gender = line.split(",")[1];
+                int count = Integer.parseInt(line.split(",")[2]);
 
                 Individual person = new Individual(name, gender, count);
                 myIndividuals.add(person);
             }
         }
-        catch (Exception e) 
+        catch (Exception e)
         {
-            e.printStackTrace();
+            throw new Exception("Invalid file", e);
+        }
+    }
+
+    public void add(Individual person)
+    {
+        if (!myIndividuals.contains(person))
+        {
+            myIndividuals.add(person);
+        }
+        else
+        {
+            throw new IllegalArgumentException("Individual already accounted for in List");
         }
 
     }
