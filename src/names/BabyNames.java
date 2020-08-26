@@ -29,12 +29,13 @@ public class BabyNames
     {
         for (YearOfBirthFile dataFile: data)
         {
-            String currentFile = "yob" + dataFile.getMyYear() + ".txt";
+            String currentFile = "ssa_complete/yob" + dataFile.getMyYear() + ".txt";
             try
             {
                 Path path = Paths.get(BabyNames.class.getClassLoader().getResource(currentFile).toURI());
                 List<String> readFile = Files.readAllLines(path);
                 String currentGender = readFile.get(0).split(",")[1];
+                boolean unchanged = true;
 
                 for (int currentLine = 0; currentLine < readFile.size(); currentLine++)
                 {
@@ -44,9 +45,10 @@ public class BabyNames
                     String gender = line.split(",")[1];
                     int count = Integer.parseInt(line.split(",")[2]);
 
-                    if (!gender.equals(currentGender))
+                    if (!gender.equals(currentGender) && unchanged)
                     {
                         dataFile.setGenderChangeIndex(currentLine);
+                        unchanged = false;
                     }
 
                     Individual person = new Individual(name, gender, count);
@@ -66,5 +68,10 @@ public class BabyNames
 
         BabyNames baby = new BabyNames(years);
         System.out.println(baby.data.get(0).getMyYear());
+        baby.read();
+        System.out.println(baby.data.get(0).topRankedName("F"));
+        System.out.println(baby.data.get(0).getGenderChangeIndex());
+        System.out.println(baby.data.get(0).getNameRank(1, "M"));
+        System.out.println(baby.data.get(0).nameCount("Jacob", "M"));
     }
 }

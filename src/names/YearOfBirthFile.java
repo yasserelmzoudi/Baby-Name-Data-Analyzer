@@ -21,6 +21,11 @@ public class YearOfBirthFile
         return myYear;
     }
 
+    public int getGenderChangeIndex()
+    {
+        return genderChangeIndex;
+    }
+
     public void setGenderChangeIndex(int index)
     {
         genderChangeIndex = index;
