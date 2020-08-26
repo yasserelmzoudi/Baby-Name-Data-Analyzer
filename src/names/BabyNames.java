@@ -33,8 +33,11 @@ public class BabyNames
             try
             {
                 Path path = Paths.get(BabyNames.class.getClassLoader().getResource(currentFile).toURI());
-                for (String line : Files.readAllLines(path))
+                List<String> readFile = Files.readAllLines(path);
+                for (int currentLine = 0; currentLine < readFile.size(); currentLine++)
                 {
+                    String line = readFile.get(currentLine);
+
                     String name = line.split(",")[0];
                     String gender = line.split(",")[1];
                     int count = Integer.parseInt(line.split(",")[2]);

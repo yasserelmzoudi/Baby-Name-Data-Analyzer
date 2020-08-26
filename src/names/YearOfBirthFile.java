@@ -46,4 +46,6 @@ public class YearOfBirthFile
         }
         return count;
     }
+
+    public int oppositeGenderStart()
 }
