@@ -10,34 +10,16 @@ public class YearOfBirthFile
 {
     private List<Individual> myIndividuals;
     private int myYear;
-    private String myFile;
 
     public YearOfBirthFile(int year)
     {
         myYear = year;
         myIndividuals = new ArrayList<>();
-        myFile = "yob" + year + ".txt";
     }
 
-    public void read() throws Exception
+    public int getMyYear()
     {
-        try 
-        {
-            Path path = Paths.get(BabyNames.class.getClassLoader().getResource(myFile).toURI());
-            for (String line : Files.readAllLines(path)) 
-            {
-                String name = line.split(",")[0];
-                String gender = line.split(",")[1];
-                int count = Integer.parseInt(line.split(",")[2]);
-
-                Individual person = new Individual(name, gender, count);
-                myIndividuals.add(person);
-            }
-        }
-        catch (Exception e)
-        {
-            throw new Exception("Invalid file", e);
-        }
+        return myYear;
     }
 
     public void add(Individual person)

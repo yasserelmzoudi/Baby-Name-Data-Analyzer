@@ -1,5 +1,8 @@
 package names;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +22,31 @@ public class BabyNames
         for (int year: years)
         {
             data.add(new YearOfBirthFile(year));
+        }
+    }
+
+    public void read() throws Exception
+    {
+        for (YearOfBirthFile dataFile: data)
+        {
+            String currentFile = "yob" + dataFile.getMyYear() + ".txt";
+            try
+            {
+                Path path = Paths.get(BabyNames.class.getClassLoader().getResource(currentFile).toURI());
+                for (String line : Files.readAllLines(path))
+                {
+                    String name = line.split(",")[0];
+                    String gender = line.split(",")[1];
+                    int count = Integer.parseInt(line.split(",")[2]);
+
+                    Individual person = new Individual(name, gender, count);
+                    dataFile.add(person);
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Invalid file", e);
+            }
         }
     }
 }
