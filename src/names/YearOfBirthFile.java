@@ -72,18 +72,23 @@ public class YearOfBirthFile
         return getNameRank(1, gender);
     }
 
-    public int numNamesLetter(String gender, char letter)
+    public List<Individual> namesLetter(String gender, char letter)
     {
-        List<Individual> namesFirstLetter = new ArrayList<>();
+        List<Individual> people = new ArrayList<>();
         for (Individual person: myIndividuals)
         {
             String name = person.getName();
             if (name.charAt(0) == letter && person.getGender().equals(gender))
             {
-                namesFirstLetter.add(person);
+                people.add(person);
             }
         }
-        return totalCount(namesFirstLetter);
+        return people;
+    }
+
+    public int totalBabies(String gender, char letter)
+    {
+        return totalCount(namesLetter(gender, letter));
     }
 
     public int totalCount(List<Individual> people)

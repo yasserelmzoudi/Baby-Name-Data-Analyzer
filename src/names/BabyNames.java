@@ -29,7 +29,7 @@ public class BabyNames
     {
         for (YearOfBirthFile dataFile: data)
         {
-            String currentFile = "ssa_complete/yob" + dataFile.getMyYear() + ".txt";
+            String currentFile = "yob" + dataFile.getMyYear() + ".txt";
             try
             {
                 Path path = Paths.get(BabyNames.class.getClassLoader().getResource(currentFile).toURI());
@@ -64,7 +64,7 @@ public class BabyNames
 
     public static void main(String[] args) throws Exception {
         List<Integer> years = new ArrayList<>();
-        years.add(2000);
+        years.add(1111);
 
         BabyNames baby = new BabyNames(years);
         System.out.println(baby.data.get(0).getMyYear());
@@ -73,5 +73,6 @@ public class BabyNames
         System.out.println(baby.data.get(0).getGenderChangeIndex());
         System.out.println(baby.data.get(0).getNameRank(1, "M"));
         System.out.println(baby.data.get(0).nameCount("Jacob", "M"));
+        System.out.println(baby.data.get(0).numNamesLetter("M", 'A'));
     }
 }
