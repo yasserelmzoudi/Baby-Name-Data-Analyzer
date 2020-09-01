@@ -18,7 +18,7 @@ public class Questions
         for (YearOfBirthFile file : reader.getData())
         {
             if (file.getMyYear() == year) {
-                result += file.topRankedName("F") + " " + file.topRankedName("M") + "\n";
+                result += file.topRankedName("F") + " " + file.topRankedName("M");
             }
         }
 
@@ -33,7 +33,7 @@ public class Questions
         {
             if (file.getMyYear() == year)
             {
-                result += file.namesLetter(gender, letter).size() + " " + file.totalBabies(gender, letter) + "\n";
+                result += file.namesLetter(gender, letter).size() + " " + file.totalBabies(gender, letter);
             }
         }
 
