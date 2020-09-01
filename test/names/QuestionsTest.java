@@ -26,9 +26,9 @@ class QuestionsTest {
         DataReader testReading = new DataReader("read_test");
         Questions q2 = new Questions(testReading);
 
-        String expectedNameBabyCount = "2 70";
-        String actualNameBabyCount = q2.nameBabyCount(1111, "M", 'A');
-        assertEquals(expectedNameBabyCount, actualNameBabyCount);
+        int[] expectedNameBabyCount = {2, 70};
+        int[] actualNameBabyCount = q2.nameBabyCount(1111, "M", 'A');
+        assertArrayEquals(expectedNameBabyCount, actualNameBabyCount);
     }
 
     @Test
@@ -82,7 +82,7 @@ class QuestionsTest {
         Questions q6 = new Questions(testReading);
 
         List<String> expectedMostPopularLetter = List.of("Imma", "Isabella");
-        List<String> actualMostPopularLetter = q6.mostPopularName(1111, 1114);
+        List<String> actualMostPopularLetter = q6.mostPopularLetter(1111, 1114);
         assertEquals(expectedMostPopularLetter, actualMostPopularLetter);
     }
 

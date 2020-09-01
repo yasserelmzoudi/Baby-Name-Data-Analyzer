@@ -1,5 +1,6 @@
 package names;
 
+import java.time.Year;
 import java.util.*;
 
 public class Questions
@@ -25,15 +26,16 @@ public class Questions
         return result;
     }
 
-    public String nameBabyCount(int year, String gender, char letter)
+    public int[] nameBabyCount(int year, String gender, char letter)
     {
-        String result = "";
+        int [] result = new int[2];
 
         for (YearOfBirthFile file : reader.getData())
         {
             if (file.getMyYear() == year)
             {
-                result += file.namesLetter(gender, letter).size() + " " + file.totalBabies(gender, letter);
+                result[0] = file.namesLetter(gender, letter).size();
+                result[1] = file.totalBabies(gender, letter);
             }
         }
 
@@ -74,7 +76,8 @@ public class Questions
 
         for (int year = start; year <= end; year++)
         {
-            topNames.add(reader.getYearOfBirthFile(year).topRankedName(gender));
+            YearOfBirthFile file = reader.getYearOfBirthFile(year);
+            topNames.add(file.topRankedName(gender));
         }
 
         Set<String> uniqueNames = new HashSet<>(topNames);
@@ -100,8 +103,50 @@ public class Questions
         return result;
     }
 
-    public List<String> mostPopularName(int start, int end)
+    public List<String> mostPopularLetter(int start, int end)
     {
+        Map<String, Integer> letterFrequency = new HashMap<>();
+        List<String> result = new ArrayList<>();
 
+        for (int year = start; year <= end; year++)
+        {
+            YearOfBirthFile file = reader.getYearOfBirthFile(year);
+
+            for (char letter = 'A'; letter <= 'Z'; letter++)
+            {
+                letterFrequency.putIfAbsent(letter + "", 0);
+                letterFrequency.put(letter + "", letterFrequency.get(letter + "") + file.totalBabies("F", letter));
+            }
+        }
+
+        int maxLetter = Collections.max(letterFrequency.values());
+        String[] keys = letterFrequency.keySet().toArray(new String[0]);
+        Arrays.sort(keys);
+
+        List<Individual> peopleFirstLetter = new ArrayList<>();
+        for (String key : keys)
+        {
+            if (letterFrequency.get(key) == maxLetter)
+            {
+                for (int year = start; year <= end; year++)
+                {
+                    YearOfBirthFile file = reader.getYearOfBirthFile(year);
+                    peopleFirstLetter.addAll(file.namesLetter("F", key.charAt(0)));
+                }
+                break;
+            }
+        }
+
+        for (Individual person : peopleFirstLetter)
+        {
+            if (!result.contains(person.getName()))
+            {
+                result.add(person.getName());
+            }
+        }
+
+        Collections.sort(result);
+
+        return result;
     }
 }
