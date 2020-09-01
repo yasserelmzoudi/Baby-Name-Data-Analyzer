@@ -76,5 +76,17 @@ class QuestionsTest {
         assertEquals(expectedTodayName, actualTodayName);
     }
 
+    @Test
+    void mostPopularLetter() throws Exception {
+        DataReader testReading = new DataReader("read_test");
+        Questions q6 = new Questions(testReading);
+
+        List<String> expectedMostPopularLetter = List.of("Imma", "Isabella");
+        List<String> actualMostPopularLetter = q6.mostPopularName(1111, 1114);
+        assertEquals(expectedMostPopularLetter, actualMostPopularLetter);
+    }
+
+
+
 
 }
