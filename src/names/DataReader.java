@@ -11,12 +11,12 @@ import java.util.List;
 /**
  * Feel free to completely change this code or delete it entirely. 
  */
-public class BabyNames
+public class DataReader
 {
     private List<Integer> years;
     private List<YearOfBirthFile> data;
 
-    public BabyNames(String dataSet) throws Exception {
+    public DataReader(String dataSet) throws Exception {
         years = new ArrayList<>();
         data = new ArrayList<>();
         readDataSet(dataSet);
@@ -25,7 +25,7 @@ public class BabyNames
     public void readDataSet(String dataSet) throws Exception {
         try
         {
-            Path path = Paths.get(BabyNames.class.getClassLoader().getResource(dataSet).toURI());
+            Path path = Paths.get(DataReader.class.getClassLoader().getResource(dataSet).toURI());
             File [] files = path.toFile().listFiles();
             Arrays.sort(files);
             for (File file : files)

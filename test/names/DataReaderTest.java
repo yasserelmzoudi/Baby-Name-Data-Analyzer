@@ -6,13 +6,18 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class BabyNamesTest {
+class DataReaderTest {
 
     @Test
     void readDataSet() throws Exception {
-        BabyNames testReading = new BabyNames("ssa_2000s");
-        List<Integer> expectedYears = List.of(2000, 2001, 2002);
+        DataReader testReading = new DataReader("read_test");
+        List<Integer> expectedYears = List.of(2000);
         List<Integer> actualYears = testReading.getYears();
         assertEquals(expectedYears, actualYears);
     }
+
+
+
+
+
 }
