@@ -1,9 +1,11 @@
 package names;
 
+import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -14,26 +16,28 @@ public class BabyNames
     private List<Integer> years;
     private List<YearOfBirthFile> data;
 
-    public BabyNames(List<Integer> years)
-    {
-        this.years = years;
+    public BabyNames(String dataSet) throws Exception {
+        years = new ArrayList<>();
         data = new ArrayList<>();
-
-        for (int year: years)
-        {
-            data.add(new YearOfBirthFile(year));
-        }
+        readDataSet(dataSet);
     }
 
-    public void read() throws Exception
-    {
-        for (YearOfBirthFile dataFile: data)
+    public void readDataSet(String dataSet) throws Exception {
+        try
         {
-            String currentFile = "yob" + dataFile.getMyYear() + ".txt";
-            try
+            Path path = Paths.get(BabyNames.class.getClassLoader().getResource(dataSet).toURI());
+            File [] files = path.toFile().listFiles();
+            Arrays.sort(files);
+            for (File file : files)
             {
-                Path path = Paths.get(BabyNames.class.getClassLoader().getResource(currentFile).toURI());
-                List<String> readFile = Files.readAllLines(path);
+                int year = Integer.parseInt(file.getName().substring(3, file.getName().length() - 4));
+                years.add(year);
+
+                YearOfBirthFile dataFile = new YearOfBirthFile(year);
+                data.add(dataFile);
+
+                List<String> readFile = Files.readAllLines(file.toPath());
+
                 String currentGender = readFile.get(0).split(",")[1];
                 boolean unchanged = true;
 
@@ -55,14 +59,22 @@ public class BabyNames
                     dataFile.add(person);
                 }
             }
-            catch (Exception e)
-            {
-                throw new Exception("Invalid file", e);
-            }
+        }
+        catch (Exception e)
+        {
+            throw new Exception("Invalid file", e);
         }
     }
 
-    public static void main(String[] args) throws Exception {
+    public List<Integer> getYears() {
+        return years;
+    }
+
+    public List<YearOfBirthFile> getData() {
+        return data;
+    }
+
+    /*public static void main(String[] args) throws Exception {
         List<Integer> years = new ArrayList<>();
 
         //Test Year
@@ -78,5 +90,5 @@ public class BabyNames
         System.out.println("Total Male babies whose Name Starts with 'A': " + baby.data.get(0).totalBabies("M", 'A'));
         System.out.println("Total Names Starting with 'A': " + baby.data.get(0).namesLetter("M", 'A').size());
 
-    }
+    }*/
 }
