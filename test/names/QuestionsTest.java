@@ -62,4 +62,16 @@ class QuestionsTest {
         String actualTodayName = q4.todayName("Isabella", "F", 1111);
         assertEquals(expectedTodayName, actualTodayName);
     }
+
+    @Test
+    void mostPopularName() throws Exception {
+        DataReader testReading = new DataReader("read_test");
+        Questions q5 = new Questions(testReading);
+
+        String expectedTodayName = "Imma";
+        String actualTodayName = q5.mostPopularName(1111, 1114, "F");
+        assertEquals(expectedTodayName, actualTodayName);
+    }
+
+
 }
