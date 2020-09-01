@@ -1,7 +1,6 @@
 package names;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Questions
 {
@@ -11,14 +10,15 @@ public class Questions
         this.reader = reader;
     }
 
-    public String topRanked(int year)
+    public String[] topRanked(int year)
     {
-        String result = "";
+        String [] result = new String[2];
 
         for (YearOfBirthFile file : reader.getData())
         {
             if (file.getMyYear() == year) {
-                result += file.topRankedName("F") + " " + file.topRankedName("M");
+                result[0] = file.topRankedName("F");
+                result[1] = file.topRankedName("M");
             }
         }
 
@@ -67,6 +67,36 @@ public class Questions
     }
 
 
-    public String mostPopularName(int i, int i1, String f) {
+    public List<String> mostPopularName(int start, int end, String gender)
+    {
+        List<String> topNames = new ArrayList<>();
+        List<String> result = new ArrayList<>();
+
+        for (int year = start; year <= end; year++)
+        {
+            topNames.add(reader.getYearOfBirthFile(year).topRankedName(gender));
+        }
+
+        Set<String> uniqueNames = new HashSet<>(topNames);
+        int maxYearsAtTop = -1;
+
+        for (String name : uniqueNames)
+        {
+            int currentYearsAtTop = Collections.frequency(topNames, name);
+            if (currentYearsAtTop > maxYearsAtTop)
+            {
+                maxYearsAtTop = currentYearsAtTop;
+            }
+        }
+
+        for (String name : uniqueNames)
+        {
+            if (maxYearsAtTop == Collections.frequency(topNames, name))
+            {
+                result.add(name);
+            }
+        }
+        result.add(String.valueOf(maxYearsAtTop));
+        return result;
     }
 }

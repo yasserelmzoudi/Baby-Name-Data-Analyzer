@@ -74,6 +74,18 @@ public class DataReader
         return data;
     }
 
+    public YearOfBirthFile getYearOfBirthFile(int year)
+    {
+        for (YearOfBirthFile file : data)
+        {
+            if (file.getMyYear() == year)
+            {
+                return file;
+            }
+        }
+        return null;
+    }
+
     /*public static void main(String[] args) throws Exception {
         List<Integer> years = new ArrayList<>();
 

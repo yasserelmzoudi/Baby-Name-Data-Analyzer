@@ -2,6 +2,7 @@ package names;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,9 +16,9 @@ class QuestionsTest {
         DataReader testReading = new DataReader("read_test");
         Questions q1 = new Questions(testReading);
 
-        String expectedRank = "Isabella Alex";
-        String actualRank = q1.topRanked(1111);
-        assertEquals(expectedRank, actualRank);
+        String[] expectedRank = {"Isabella", "Alex"};
+        String[] actualRank = q1.topRanked(1111);
+        assertArrayEquals(expectedRank, actualRank);
     }
 
     @Test
@@ -38,6 +39,8 @@ class QuestionsTest {
         Map<Integer, Integer> expectedRankings = new HashMap<>();
         expectedRankings.put(1111, 1);
         expectedRankings.put(1112, 2);
+        expectedRankings.put(1113, 2);
+        expectedRankings.put(1114, 2);
 
         Map<Integer, Integer> actualRankings = q3.allRankings("Alex", "M");
         assertEquals(expectedRankings, actualRankings);
@@ -68,8 +71,8 @@ class QuestionsTest {
         DataReader testReading = new DataReader("read_test");
         Questions q5 = new Questions(testReading);
 
-        String expectedTodayName = "Imma";
-        String actualTodayName = q5.mostPopularName(1111, 1114, "F");
+        List<String> expectedTodayName = List.of("Imma", "3");
+        List<String> actualTodayName = q5.mostPopularName(1111, 1114, "F");
         assertEquals(expectedTodayName, actualTodayName);
     }
 
