@@ -1,13 +1,10 @@
 package names;
 
-import java.util.HashMap;
-import java.util.Map;
-
-public class Questions
+public class OutputManager
 {
     private DataReader reader;
 
-    public Questions(DataReader reader) {
+    public OutputManager(DataReader reader) {
         this.reader = reader;
     }
 
@@ -18,7 +15,10 @@ public class Questions
         for (YearOfBirthFile file : reader.getData())
         {
             if (file.getMyYear() == year) {
-                result += file.topRankedName("F") + " " + file.topRankedName("M") + "\n";
+                result += "Top Ranked " + year + " Female Name: " + file.topRankedName("F");
+                result += "\n";
+                result += "Top Ranked " + year + " Male Name: " + file.topRankedName("M");
+                result += "\n";
             }
         }
 
@@ -33,16 +33,19 @@ public class Questions
         {
             if (file.getMyYear() == year)
             {
-                result += file.namesLetter(gender, letter).size() + " " + file.totalBabies(gender, letter) + "\n";
+                result += "Total " + year + " " + gender + " names starting with '" + letter + "': " + file.namesLetter(gender, letter).size();
+                result += "\n";
+                result += "Total " + year + " " + gender + " babies whose name Starts with '" + letter + "': " + file.totalBabies(gender, letter);
+                result += "\n";
             }
         }
 
         return result;
     }
 
-    public Map<Integer, Integer> allRankings(String name, String gender)
+    public String allRankings(String name, String gender)
     {
-        Map<Integer, Integer> result = new HashMap<>();
+        String result = "";
 
         for (YearOfBirthFile file : reader.getData())
         {
@@ -50,7 +53,7 @@ public class Questions
             {
                 if (name.equals(person.getName()) && gender.equals(person.getGender()))
                 {
-                    result.putIfAbsent(file.getMyYear(), person.getRank());
+                    result += file.getMyYear() + " " + name + " Ranking: " + person.getRank() + "\n";
                 }
             }
         }
@@ -60,10 +63,9 @@ public class Questions
 
     public String todayName(String name, String gender, int year)
     {
-        Map<Integer, Integer> rankings = allRankings(name, gender);
-        int desiredRank = rankings.get(year);
+        String result = "";
 
-        return reader.getData().get(reader.getData().size() - 1).getNameRank(desiredRank, gender);
+
     }
 
 
