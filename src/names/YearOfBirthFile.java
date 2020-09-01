@@ -16,6 +16,11 @@ public class YearOfBirthFile
         genderChangeIndex = 0;
     }
 
+    public List<Individual> getMyIndividuals()
+    {
+        return myIndividuals;
+    }
+
     public int getMyYear()
     {
         return myYear;

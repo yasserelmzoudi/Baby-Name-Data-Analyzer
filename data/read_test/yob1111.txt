@@ -1,0 +1,7 @@
+Isabella,F,30
+Imma,F,10
+Olivia,F,7
+Sophia,F,5
+Alex,M,40
+Aohn,M,30
+Yasser,M,20

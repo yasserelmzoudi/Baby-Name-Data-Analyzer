@@ -49,13 +49,13 @@ public class DataReader
                     String gender = line.split(",")[1];
                     int count = Integer.parseInt(line.split(",")[2]);
 
-                    if (!gender.equals(currentGender) && unchanged)
+                    if (unchanged && !gender.equals(currentGender))
                     {
                         dataFile.setGenderChangeIndex(currentLine);
                         unchanged = false;
                     }
 
-                    Individual person = new Individual(name, gender, count);
+                    Individual person = new Individual(name, gender, count, currentLine + 1 - dataFile.getGenderChangeIndex());
                     dataFile.add(person);
                 }
             }

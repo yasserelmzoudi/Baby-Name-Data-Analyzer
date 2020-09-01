@@ -7,12 +7,14 @@ public class Individual
     private String name;
     private String gender;
     private int count;
+    private int rank;
 
-    public Individual(String name, String gender, int count)
+    public Individual(String name, String gender, int count, int rank)
     {
         this.name = name;
         this.gender = gender;
         this.count = count;
+        this.rank = rank;
     }
 
     public String getName()
@@ -28,6 +30,11 @@ public class Individual
     public int getCount()
     {
         return count;
+    }
+
+    public int getRank()
+    {
+        return rank;
     }
 
     @Override
