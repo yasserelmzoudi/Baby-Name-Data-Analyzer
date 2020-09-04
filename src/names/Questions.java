@@ -69,12 +69,12 @@ public class Questions
     }
 
 
-    public List<String> mostPopularName(int start, int end, String gender)
+    public List<String> mostPopularName(int startYear, int endYear, String gender)
     {
         List<String> topNames = new ArrayList<>();
         List<String> result = new ArrayList<>();
 
-        for (int year = start; year <= end; year++)
+        for (int year = startYear; year <= endYear; year++)
         {
             YearOfBirthFile file = reader.getYearOfBirthFile(year);
             topNames.add(file.topRankedName(gender));
@@ -103,12 +103,12 @@ public class Questions
         return result;
     }
 
-    public List<String> mostPopularLetter(int start, int end)
+    public List<String> mostPopularLetter(int startYear, int endYear)
     {
         Map<String, Integer> letterFrequency = new HashMap<>();
         List<String> result = new ArrayList<>();
 
-        for (int year = start; year <= end; year++)
+        for (int year = startYear; year <= endYear; year++)
         {
             YearOfBirthFile file = reader.getYearOfBirthFile(year);
 
@@ -128,7 +128,7 @@ public class Questions
         {
             if (letterFrequency.get(key) == maxLetter)
             {
-                for (int year = start; year <= end; year++)
+                for (int year = startYear; year <= endYear; year++)
                 {
                     YearOfBirthFile file = reader.getYearOfBirthFile(year);
                     peopleFirstLetter.addAll(file.namesLetter("F", key.charAt(0)));
@@ -148,5 +148,11 @@ public class Questions
         Collections.sort(result);
 
         return result;
+    }
+
+    public List<Integer> allRankingsRange(String name, String gender, int startYear, int endYear)
+    {
+        List<Integer> allRankingsRange = new ArrayList<>();
+        return allRankingsRange;
     }
 }

@@ -86,6 +86,16 @@ class QuestionsTest {
         assertEquals(expectedMostPopularLetter, actualMostPopularLetter);
     }
 
+    @Test
+    void allRankings() throws Exception {
+        DataReader testReading = new DataReader("read_test");
+        Questions q7 = new Questions(testReading);
+
+        List<Integer> expectedRankings = List.of(1, 2, 2, 2);
+        List<Integer> actualRankings = q7.allRankingsRange("Alex", "M", 1111, 1114);
+        assertEquals(expectedRankings, actualRankings);
+    }
+
 
 
 
