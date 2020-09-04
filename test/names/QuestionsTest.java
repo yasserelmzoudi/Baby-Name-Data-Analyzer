@@ -87,12 +87,15 @@ class QuestionsTest {
     }
 
     @Test
-    void allRankings() throws Exception {
+    void allRankingsRange() throws Exception {
         DataReader testReading = new DataReader("read_test");
         Questions q7 = new Questions(testReading);
 
-        List<Integer> expectedRankings = List.of(1, 2, 2, 2);
-        List<Integer> actualRankings = q7.allRankingsRange("Alex", "M", 1111, 1114);
+        Map<Integer, Integer> expectedRankings = new HashMap<>();
+        expectedRankings.put(1112, 2);
+        expectedRankings.put(1113, 2);
+
+        Map<Integer, Integer> actualRankings = q7.allRankingsRange("Alex", "M", 1112, 1113);
         assertEquals(expectedRankings, actualRankings);
     }
 

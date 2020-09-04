@@ -150,9 +150,15 @@ public class Questions
         return result;
     }
 
-    public List<Integer> allRankingsRange(String name, String gender, int startYear, int endYear)
+    public Map<Integer, Integer> allRankingsRange(String name, String gender, int startYear, int endYear)
     {
-        List<Integer> allRankingsRange = new ArrayList<>();
+        Map<Integer, Integer> allRankingsRange = new HashMap<>();
+
+        for (int year = startYear; year <= endYear; year++)
+        {
+
+        }
+
         return allRankingsRange;
     }
 }
