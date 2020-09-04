@@ -86,6 +86,7 @@ public class Questions
         for (String name : uniqueNames)
         {
             int currentYearsAtTop = Collections.frequency(topNames, name);
+
             if (currentYearsAtTop > maxYearsAtTop)
             {
                 maxYearsAtTop = currentYearsAtTop;
