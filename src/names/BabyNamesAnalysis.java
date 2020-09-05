@@ -1,13 +1,12 @@
 package names;
 
-import java.time.Year;
 import java.util.*;
 
-public class Questions
+public class BabyNamesAnalysis
 {
     private DataReader reader;
 
-    public Questions(DataReader reader) {
+    public BabyNamesAnalysis(DataReader reader) {
         this.reader = reader;
     }
 
@@ -156,8 +155,23 @@ public class Questions
         return allRankingsRange;
     }
 
-    public int differenceInRank(int startYear, int endYear, String gender)
+    public int differenceInRank(int startYear, int endYear, String name, String gender)
     {
-        int startRank = reader.getYearOfBirthFile(startYear).get
+        int startRank = reader.getYearOfBirthFile(startYear).getIndividual(name, gender).getRank();
+        int endRank = reader.getYearOfBirthFile(endYear).getIndividual(name, gender).getRank();
+
+        return startRank - endRank;
+    }
+
+    public String mostVolatileName(int startYear, int endYear, String gender)
+    {
+        int
+        for (YearOfBirthFile file : reader.getFilesInRange(startYear, endYear))
+        {
+            for (Individual person : file.getMyIndividuals())
+            {
+                Math.abs(differenceInRank(startYear, endYear, person.getName(), gender))
+            }
+        }
     }
 }

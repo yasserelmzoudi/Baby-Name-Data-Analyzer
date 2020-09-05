@@ -55,7 +55,7 @@ public class YearOfBirthFile
         {
             if (person.getName().equals(name) && person.getGender().equals(gender))
             {
-                count = person.getCount();
+                count = person.getOccurrences();
             }
         }
         return count;
@@ -101,8 +101,14 @@ public class YearOfBirthFile
         int totalCount = 0;
         for (Individual person: people)
         {
-            totalCount += person.getCount();
+            totalCount += person.getOccurrences();
         }
         return totalCount;
+    }
+
+    public Individual getIndividual(String name, String gender)
+    {
+        Individual desiredIndividual = new Individual(name, gender);
+        return myIndividuals.get(myIndividuals.indexOf(desiredIndividual));
     }
 }

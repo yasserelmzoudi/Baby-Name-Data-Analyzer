@@ -6,16 +6,17 @@ public class Individual
 {
     private String name;
     private String gender;
-    private int count;
+    private int occurrences;
     private int rank;
 
-    public Individual(String name, String gender, int count, int rank)
+    public Individual(String name, String gender, int occurrences, int rank)
     {
         this.name = name;
         this.gender = gender;
-        this.count = count;
+        this.occurrences = occurrences;
         this.rank = rank;
     }
+
 
     public Individual(String name, String gender)
     {
@@ -32,9 +33,9 @@ public class Individual
         return gender;
     }
 
-    public int getCount()
+    public int getOccurrences()
     {
-        return count;
+        return occurrences;
     }
 
     public int getRank()
