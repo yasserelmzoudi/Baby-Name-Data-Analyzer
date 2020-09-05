@@ -155,12 +155,16 @@ public class Questions
     {
         Map<Integer, Integer> allRankingsRange = new HashMap<>();
 
-        for (YearOfBirthFile file : getFilesInRange(startYear, endYear))
+        for (YearOfBirthFile file : reader.getFilesInRange(startYear, endYear))
         {
-
+            for (Individual person : file.getMyIndividuals())
+            {
+                if (name.equals(person.getName()) && gender.equals(person.getGender()))
+                {
+                    allRankingsRange.putIfAbsent(file.getMyYear(), person.getRank());
+                }
+            }
         }
-
-
 
         return allRankingsRange;
     }

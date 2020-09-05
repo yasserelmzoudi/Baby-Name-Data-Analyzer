@@ -57,7 +57,7 @@ public class Individual
         }
 
         Individual person = (Individual)other;
-        return (name.equals(person.name)) && (gender.equals(person.gender)) && (count == person.count);
+        return (name.equalsIgnoreCase(person.name)) && (gender.equalsIgnoreCase(person.gender)) && (count == person.count);
     }
 
     @Override
