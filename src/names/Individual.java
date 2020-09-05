@@ -17,6 +17,11 @@ public class Individual
         this.rank = rank;
     }
 
+    public Individual(String name, String gender)
+    {
+        this(name, gender, -1 ,-1);
+    }
+
     public String getName()
     {
         return name;
@@ -57,12 +62,12 @@ public class Individual
         }
 
         Individual person = (Individual)other;
-        return (name.equalsIgnoreCase(person.name)) && (gender.equalsIgnoreCase(person.gender)) && (count == person.count);
+        return (name.equalsIgnoreCase(person.name)) && (gender.equalsIgnoreCase(person.gender));
     }
 
     @Override
     public int hashCode()
     {
-        return Objects.hash(name, gender, count);
+        return Objects.hash(name, gender);
     }
 }

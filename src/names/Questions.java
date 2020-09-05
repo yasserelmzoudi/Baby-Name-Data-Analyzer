@@ -158,6 +158,6 @@ public class Questions
 
     public int differenceInRank(int startYear, int endYear, String gender)
     {
-
+        int startRank = reader.getYearOfBirthFile(startYear).get
     }
 }
