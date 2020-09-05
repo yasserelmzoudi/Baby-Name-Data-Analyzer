@@ -99,6 +99,18 @@ class QuestionsTest {
         assertEquals(expectedRankings, actualRankings);
     }
 
+    @Test
+    void differenceInRank() throws Exception {
+        DataReader testReading = new DataReader("read_test");
+        Questions q8 = new Questions(testReading);
+
+        int expectedDifference = -1;
+
+        int actualDifference = q8.differenceInRank(1111, 1113, "F");
+
+        assertEquals(expectedDifference, actualDifference);
+    }
+
 
 
 

@@ -155,4 +155,9 @@ public class Questions
 
         return allRankingsRange;
     }
+
+    public int differenceInRank(int startYear, int endYear, String gender)
+    {
+
+    }
 }
