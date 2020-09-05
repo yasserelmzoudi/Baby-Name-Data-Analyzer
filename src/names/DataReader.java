@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -98,5 +99,17 @@ public class DataReader
         }
 
         return filesInRange;
+    }
+
+    public int getStartYear()
+    {
+        Collections.sort(years);
+        return years.get(0);
+    }
+
+    public int getEndYear()
+    {
+        Collections.sort(years);
+        return years.get(years.size() - 1);
     }
 }

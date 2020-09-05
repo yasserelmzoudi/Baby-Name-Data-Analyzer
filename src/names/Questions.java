@@ -44,20 +44,7 @@ public class Questions
 
     public Map<Integer, Integer> allRankings(String name, String gender)
     {
-        Map<Integer, Integer> result = new HashMap<>();
-
-        for (YearOfBirthFile file : reader.getData())
-        {
-            for (Individual person : file.getMyIndividuals())
-            {
-                if (name.equals(person.getName()) && gender.equals(person.getGender()))
-                {
-                    result.putIfAbsent(file.getMyYear(), person.getRank());
-                }
-            }
-        }
-
-        return result;
+        return allRankingsRange(name, gender, reader.getStartYear(), reader.getEndYear());
     }
 
     public String todayName(String name, String gender, int year)
