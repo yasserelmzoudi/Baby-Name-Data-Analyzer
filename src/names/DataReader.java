@@ -85,4 +85,18 @@ public class DataReader
         }
         return null;
     }
+
+    public List<YearOfBirthFile> getFilesInRange(int startYear, int endYear)
+    {
+        List<YearOfBirthFile> filesInRange = new ArrayList<>();
+        for (int year = startYear; year <= endYear; year++)
+        {
+            if (getYears().contains(year))
+            {
+                filesInRange.add(getYearOfBirthFile(year));
+            }
+        }
+
+        return filesInRange;
+    }
 }

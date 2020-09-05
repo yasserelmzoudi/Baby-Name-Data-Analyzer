@@ -155,10 +155,12 @@ public class Questions
     {
         Map<Integer, Integer> allRankingsRange = new HashMap<>();
 
-        for (int year = startYear; year <= endYear; year++)
+        for (YearOfBirthFile file : getFilesInRange(startYear, endYear))
         {
 
         }
+
+
 
         return allRankingsRange;
     }
