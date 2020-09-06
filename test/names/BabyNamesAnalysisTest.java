@@ -157,6 +157,18 @@ class BabyNamesAnalysisTest {
 
     }
 
+    @Test
+    void namesAtRankInRange() throws Exception {
+        DataReader testReading = new DataReader("read_test");
+        BabyNamesAnalysis q13 = new BabyNamesAnalysis(testReading);
+
+        List<String> expectedNamesAtRankInRange = List.of("Aohn", "Alex", "Alex", "Alex", "Alex", "Aohn", "Flex");
+        List<String> actualNamesAtRankInRange = q13.namesAtRankInRange(1111, 1117, "M", 2);
+
+        assertEquals(expectedNamesAtRankInRange, actualNamesAtRankInRange);
+
+    }
+
 
 
 

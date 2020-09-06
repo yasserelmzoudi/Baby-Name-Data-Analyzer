@@ -258,4 +258,9 @@ public class BabyNamesAnalysis
 
         return averageRankForName(name, gender, reader.getEndYear() - recentYears + 1, reader.getEndYear());
     }
+
+    public List<String> namesAtRankInRange(int startYear, int endYear, String gender, int rank)
+    {
+
+    }
 }
