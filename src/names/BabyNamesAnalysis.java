@@ -249,6 +249,13 @@ public class BabyNamesAnalysis
         return highestAverageRankedName;
     }
 
-    public double recentAverageRank(String name, String gender, int recentYears) {
+    public double recentAverageRank(String name, String gender, int recentYears)
+    {
+        if (reader.getEndYear() - reader.getStartYear() + 1 < recentYears)
+        {
+            throw new IllegalArgumentException("Not Enough Years in Data Set");
+        }
+
+        return averageRankForName(name, gender, reader.getEndYear() - recentYears + 1, reader.getEndYear());
     }
 }
