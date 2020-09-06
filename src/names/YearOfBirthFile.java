@@ -31,6 +31,19 @@ public class YearOfBirthFile
         return genderChangeIndex;
     }
 
+    public Individual getIndividual(String name, String gender)
+    {
+        Individual desiredIndividual = new Individual(name, gender);
+
+        Individual foundIndividual = null;
+
+        if (myIndividuals.indexOf(desiredIndividual) != -1)
+        {
+            foundIndividual = myIndividuals.get(myIndividuals.indexOf(desiredIndividual));
+        }
+        return foundIndividual;
+    }
+
     public void setGenderChangeIndex(int index)
     {
         genderChangeIndex = index;
@@ -46,19 +59,6 @@ public class YearOfBirthFile
         {
             throw new IllegalArgumentException("Individual already accounted for in List");
         }
-    }
-
-    public int nameCount(String name, String gender)
-    {
-        int count = 0;
-        for (Individual person: myIndividuals)
-        {
-            if (person.getName().equals(name) && person.getGender().equals(gender))
-            {
-                count = person.getOccurrences();
-            }
-        }
-        return count;
     }
 
     public String getNameRank(int rank, String gender)
@@ -104,11 +104,5 @@ public class YearOfBirthFile
             totalCount += person.getOccurrences();
         }
         return totalCount;
-    }
-
-    public Individual getIndividual(String name, String gender)
-    {
-        Individual desiredIndividual = new Individual(name, gender);
-        return myIndividuals.get(myIndividuals.indexOf(desiredIndividual));
     }
 }

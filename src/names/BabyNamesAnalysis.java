@@ -157,21 +157,47 @@ public class BabyNamesAnalysis
 
     public int differenceInRank(int startYear, int endYear, String name, String gender)
     {
-        int startRank = reader.getYearOfBirthFile(startYear).getIndividual(name, gender).getRank();
-        int endRank = reader.getYearOfBirthFile(endYear).getIndividual(name, gender).getRank();
+        int startRank = 0;
+        if (reader.getYearOfBirthFile(startYear).getIndividual(name, gender) != null)
+        {
+            startRank = reader.getYearOfBirthFile(startYear).getIndividual(name, gender).getRank();
+        }
 
+        int endRank = 0;
+        if (reader.getYearOfBirthFile(endYear).getIndividual(name, gender) != null)
+        {
+            endRank = reader.getYearOfBirthFile(endYear).getIndividual(name, gender).getRank();
+        }
         return startRank - endRank;
     }
 
     public String mostVolatileName(int startYear, int endYear, String gender)
     {
-        int
-        for (YearOfBirthFile file : reader.getFilesInRange(startYear, endYear))
+        Map<String, Integer> rankDifferences = new HashMap<>();
+        for (Individual person: reader.getIndividualsInRange(startYear, endYear))
         {
-            for (Individual person : file.getMyIndividuals())
+            String name = person.getName();
+            rankDifferences.put(name, Math.abs(differenceInRank(startYear, endYear, name, gender)));
+        }
+
+        String mostVolatileName = getMaxEntryInMap(rankDifferences).getKey();
+
+        return mostVolatileName;
+
+    }
+
+    private Map.Entry<String, Integer> getMaxEntryInMap(Map<String, Integer> nameMap)
+    {
+        Map.Entry<String, Integer> entryWithMaxValue = null;
+
+        for (Map.Entry<String, Integer> currentEntry : nameMap.entrySet())
+        {
+            if (entryWithMaxValue == null || currentEntry.getValue().compareTo(entryWithMaxValue.getValue()) > 0)
             {
-                Math.abs(differenceInRank(startYear, endYear, person.getName(), gender))
+                entryWithMaxValue = currentEntry;
             }
         }
+
+        return entryWithMaxValue;
     }
 }

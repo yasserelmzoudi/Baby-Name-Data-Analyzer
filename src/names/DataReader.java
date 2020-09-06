@@ -4,10 +4,7 @@ import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * Feel free to completely change this code or delete it entirely. 
@@ -111,5 +108,15 @@ public class DataReader
     {
         Collections.sort(years);
         return years.get(years.size() - 1);
+    }
+
+    public Set<Individual> getIndividualsInRange(int startYear, int endYear)
+    {
+        Set<Individual> individualsInRange = new HashSet<>();
+        for (YearOfBirthFile file : getFilesInRange(startYear, endYear))
+        {
+            individualsInRange.addAll(file.getMyIndividuals());
+        }
+        return individualsInRange;
     }
 }
