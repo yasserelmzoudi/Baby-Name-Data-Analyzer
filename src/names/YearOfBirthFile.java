@@ -49,6 +49,10 @@ public class YearOfBirthFile
         genderChangeIndex = index;
     }
 
+    public boolean isNameInYear(String name, String gender)
+    {
+        return getIndividual(name, gender) != null;
+    }
     public void add(Individual person)
     {
         if (!myIndividuals.contains(person))

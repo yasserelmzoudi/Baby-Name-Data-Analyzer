@@ -157,18 +157,30 @@ public class BabyNamesAnalysis
 
     public int differenceInRank(int startYear, int endYear, String name, String gender)
     {
-        int startRank = 0;
-        if (reader.getYearOfBirthFile(startYear).getIndividual(name, gender) != null)
+        if (isNameInYear(startYear, name, gender) && isNameInYear(endYear, name, gender))
         {
-            startRank = reader.getYearOfBirthFile(startYear).getIndividual(name, gender).getRank();
+            int startRank = reader.getYearOfBirthFile(startYear).getIndividual(name, gender).getRank();
+            int endRank = reader.getYearOfBirthFile(endYear).getIndividual(name, gender).getRank();
+            return startRank - endRank;
         }
+        throw new IllegalArgumentException("Name not found");
+    }
 
-        int endRank = 0;
-        if (reader.getYearOfBirthFile(endYear).getIndividual(name, gender) != null)
+    private boolean isNameInYear(int year, String name, String gender)
+    {
+        return reader.getYearOfBirthFile(year).getIndividual(name, gender) != null;
+    }
+
+    private boolean isNameInYearRange(int startYear, int endYear, String name, String gender)
+    {
+        for (int year = startYear; year <= endYear; year++)
         {
-            endRank = reader.getYearOfBirthFile(endYear).getIndividual(name, gender).getRank();
+            if (!isNameInYear(year, name, gender))
+            {
+                return false;
+            }
         }
-        return startRank - endRank;
+        return true;
     }
 
     public String mostVolatileName(int startYear, int endYear, String gender)
@@ -177,11 +189,13 @@ public class BabyNamesAnalysis
         for (Individual person: reader.getIndividualsInRange(startYear, endYear))
         {
             String name = person.getName();
-            rankDifferences.put(name, Math.abs(differenceInRank(startYear, endYear, name, gender)));
+            if (isNameInYear(startYear, name, gender) && isNameInYear(endYear, name, gender))
+            {
+                rankDifferences.put(name, Math.abs(differenceInRank(startYear, endYear, name, gender)));
+            }
         }
 
         String mostVolatileName = getMaxEntryInMap(rankDifferences).getKey();
-
         return mostVolatileName;
 
     }
