@@ -248,4 +248,7 @@ public class BabyNamesAnalysis
         String highestAverageRankedName = getMaxEntryInMap(averageRanks).getKey();
         return highestAverageRankedName;
     }
+
+    public double recentAverageRank(String name, String gender, int recentYears) {
+    }
 }
