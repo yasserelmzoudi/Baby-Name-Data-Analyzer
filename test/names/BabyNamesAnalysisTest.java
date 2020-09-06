@@ -121,6 +121,17 @@ class BabyNamesAnalysisTest {
         assertEquals(expectedMostVolatileName, actualMostVolatileName);
     }
 
+    @Test
+    void averageRankForName() throws Exception {
+        DataReader testReading = new DataReader("read_test");
+        BabyNamesAnalysis q10 = new BabyNamesAnalysis(testReading);
+
+        double expectedAverageRank = 4.5;
+        double actualAverageRank = q10.averageRankForName("Yasser", "M", 1111, 1114);
+
+        assertEquals(expectedAverageRank, actualAverageRank);
+    }
+
 
 
 

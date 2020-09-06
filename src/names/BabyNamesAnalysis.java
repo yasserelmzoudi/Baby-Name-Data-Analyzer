@@ -214,4 +214,9 @@ public class BabyNamesAnalysis
 
         return entryWithMaxValue;
     }
+
+    public double averageRankForName(String name, String gender, int startYear, int endYear)
+    {
+
+    }
 }
