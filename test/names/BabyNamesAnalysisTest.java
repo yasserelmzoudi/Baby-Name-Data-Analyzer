@@ -40,6 +40,8 @@ class BabyNamesAnalysisTest {
         expectedRankings.put(1112, 2);
         expectedRankings.put(1113, 2);
         expectedRankings.put(1114, 2);
+        expectedRankings.put(1115, 2);
+        expectedRankings.put(1116, 3);
 
         Map<Integer, Integer> actualRankings = q3.allRankings("Alex", "M");
         assertEquals(expectedRankings, actualRankings);
@@ -50,7 +52,7 @@ class BabyNamesAnalysisTest {
         DataReader testReading = new DataReader("read_test");
         BabyNamesAnalysis q4 = new BabyNamesAnalysis(testReading);
 
-        String expectedTodayName = "Alex";
+        String expectedTodayName = "Flex";
         String actualTodayName = q4.todayName("Aohn", "M", 1111);
         assertEquals(expectedTodayName, actualTodayName);
     }

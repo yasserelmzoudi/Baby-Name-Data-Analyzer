@@ -185,13 +185,13 @@ public class BabyNamesAnalysis
 
     public String mostVolatileName(int startYear, int endYear, String gender)
     {
-        Map<String, Integer> rankDifferences = new HashMap<>();
+        Map<String, Double> rankDifferences = new HashMap<>();
         for (Individual person: reader.getIndividualsInRange(startYear, endYear))
         {
             String name = person.getName();
             if (isNameInYear(startYear, name, gender) && isNameInYear(endYear, name, gender))
             {
-                rankDifferences.put(name, Math.abs(differenceInRank(startYear, endYear, name, gender)));
+                rankDifferences.put(name, (double) Math.abs(differenceInRank(startYear, endYear, name, gender)));
             }
         }
 
@@ -200,11 +200,11 @@ public class BabyNamesAnalysis
 
     }
 
-    private Map.Entry<String, Integer> getMaxEntryInMap(Map<String, Integer> nameMap)
+    private Map.Entry<String, Double> getMaxEntryInMap(Map<String, Double> nameMap)
     {
-        Map.Entry<String, Integer> entryWithMaxValue = null;
+        Map.Entry<String, Double> entryWithMaxValue = null;
 
-        for (Map.Entry<String, Integer> currentEntry : nameMap.entrySet())
+        for (Map.Entry<String, Double> currentEntry : nameMap.entrySet())
         {
             if (entryWithMaxValue == null || currentEntry.getValue().compareTo(entryWithMaxValue.getValue()) > 0)
             {
@@ -235,6 +235,17 @@ public class BabyNamesAnalysis
 
     public String highestAverageRank(int startYear, int endYear, String gender)
     {
+        Map<String, Double> averageRanks = new HashMap<>();
+        for (Individual person: reader.getIndividualsInRange(startYear, endYear))
+        {
+            String name = person.getName();
+            if (isNameInYear(startYear, name, gender) && isNameInYear(endYear, name, gender))
+            {
+                averageRanks.put(name, averageRankForName(name, gender, startYear, endYear) * -1);
+            }
+        }
 
+        String highestAverageRankedName = getMaxEntryInMap(averageRanks).getKey();
+        return highestAverageRankedName;
     }
 }
