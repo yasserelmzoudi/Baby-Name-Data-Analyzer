@@ -232,4 +232,9 @@ public class BabyNamesAnalysis
 
         return totalRank / totalYears;
     }
+
+    public String highestAverageRank(int startYear, int endYear, String gender)
+    {
+
+    }
 }

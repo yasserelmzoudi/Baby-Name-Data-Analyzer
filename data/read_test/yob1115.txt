@@ -1,0 +1,13 @@
+Imma,F,30
+Isabella,F,10
+Olivia,F,7
+Sophia,F,5
+Aohn,M,40
+Alex,M,30
+Blex,M,30
+Clex,M,30
+Dlex,M,30
+Elex,M,30
+Flex,M,30
+Glex,M,30
+Yasser,M,20
