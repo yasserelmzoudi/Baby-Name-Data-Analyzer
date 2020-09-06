@@ -217,6 +217,19 @@ public class BabyNamesAnalysis
 
     public double averageRankForName(String name, String gender, int startYear, int endYear)
     {
+        if (!isNameInYearRange(startYear, endYear, name, gender))
+        {
+            throw new IllegalArgumentException("Name not found in all of given years");
+        }
 
+        double totalRank = 0;
+        double totalYears = 0;
+        for (Integer rank: allRankingsRange(name, gender, startYear, endYear).values())
+        {
+            totalRank += rank;
+            totalYears++;
+        }
+
+        return totalRank / totalYears;
     }
 }
