@@ -280,24 +280,21 @@ public class BabyNamesAnalysis
 
     public Map<String, Double> namesMostOftenAtRank(int startYear, int endYear, String gender, int rank)
     {
-        Map<String, Double> namesAtRank = new HashMap<>();
+        Map<String, Double> namesAtRankWithCount = new HashMap<>();
+        List<String> namesAtRank = namesAtRankInRange(startYear, endYear, gender, rank);
         for (Individual person: reader.getIndividualsInRange(startYear, endYear))
         {
             String name = person.getName();
             if (isNameInYearRange(startYear, endYear, name, gender))
             {
-                /*namesAtRank.putIfAbsent(name, 0.0);
-                namesAtRank.put(name,  namesAtRank.get(name) + (double) (person.getRank() == rank ? 1 :0));
-                 */
-                if (person.getRank() == rank)
+                if (namesAtRank.contains(name))
                 {
-                    namesAtRank.putIfAbsent(name, 0.0);
-                    namesAtRank.put(name, namesAtRank.get(name) + 1);
+                     namesAtRankWithCount.put(name, (double) Collections.frequency(namesAtRank, name));
                 }
             }
         }
 
-        //Map<String, Double> maxNamesAtRank = getMaxEntriesInMap(namesAtRank);
-        return namesAtRank;
+        Map<String, Double> maxNamesAtRank = getMaxEntriesInMap(namesAtRankWithCount);
+        return maxNamesAtRank;
     }
 }

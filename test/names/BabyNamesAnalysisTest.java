@@ -176,7 +176,7 @@ class BabyNamesAnalysisTest {
 
         Map<String, Double> expectedNamesMostOftenAtRank = new HashMap<>();
         expectedNamesMostOftenAtRank.put("Alex", 4.0);
-        Map<String, Double> actualNamesMostOftenAtRank = q14.namesMostOftenAtRank(1111, 1117, "M", 2);
+        Map<String, Double> actualNamesMostOftenAtRank = q14.namesMostOftenAtRank(1111, 1116, "M", 2);
 
         assertEquals(expectedNamesMostOftenAtRank, actualNamesMostOftenAtRank);
     }
