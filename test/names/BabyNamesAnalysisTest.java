@@ -68,13 +68,15 @@ class BabyNamesAnalysisTest {
     }
 
     @Test
-    void mostPopularName() throws Exception {
+    void mostPopularNames() throws Exception {
         DataReader testReading = new DataReader("read_test");
         BabyNamesAnalysis q5 = new BabyNamesAnalysis(testReading);
 
-        List<String> expectedTodayName = List.of("Imma", "3");
-        List<String> actualTodayName = q5.mostPopularName(1111, 1114, "F");
-        assertEquals(expectedTodayName, actualTodayName);
+        Map<String, Double> expectedMostPopularNames = new HashMap<>();
+        expectedMostPopularNames.put("Imma", 3.0);
+        Map<String, Double> actualMostPopularNames = q5.mostPopularNames(1111, 1114, "F");
+
+        assertEquals(expectedMostPopularNames, actualMostPopularNames);
     }
 
     @Test

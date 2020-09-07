@@ -55,39 +55,9 @@ public class BabyNamesAnalysis
     }
 
 
-    public List<String> mostPopularName(int startYear, int endYear, String gender)
+    public Map<String, Double> mostPopularNames(int startYear, int endYear, String gender)
     {
-        List<String> topNames = new ArrayList<>();
-        List<String> result = new ArrayList<>();
-
-        for (int year = startYear; year <= endYear; year++)
-        {
-            YearOfBirthFile file = reader.getYearOfBirthFile(year);
-            topNames.add(file.topRankedName(gender));
-        }
-
-        Set<String> uniqueNames = new HashSet<>(topNames);
-        int maxYearsAtTop = -1;
-
-        for (String name : uniqueNames)
-        {
-            int currentYearsAtTop = Collections.frequency(topNames, name);
-
-            if (currentYearsAtTop > maxYearsAtTop)
-            {
-                maxYearsAtTop = currentYearsAtTop;
-            }
-        }
-
-        for (String name : uniqueNames)
-        {
-            if (maxYearsAtTop == Collections.frequency(topNames, name))
-            {
-                result.add(name);
-            }
-        }
-        result.add(String.valueOf(maxYearsAtTop));
-        return result;
+        return namesMostOftenAtRank(startYear, endYear, gender, 1);
     }
 
     public List<String> mostPopularLetter(int startYear, int endYear)
