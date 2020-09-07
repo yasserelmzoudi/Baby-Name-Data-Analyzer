@@ -206,13 +206,21 @@ public class BabyNamesAnalysis
 
         for (Map.Entry<String, Double> currentEntry : nameMap.entrySet())
         {
-            if (entryWithMaxValue == null || currentEntry.getValue().compareTo(entryWithMaxValue.getValue()) > 0)
+            if (entryWithMaxValue == null || currentEntry.getValue().compareTo(entryWithMaxValue.getValue()) >= 0)
             {
                 entryWithMaxValue = currentEntry;
             }
         }
 
         return entryWithMaxValue;
+    }
+
+    private Map<String, Double> getMaxEntriesInMap(Map<String, Double> nameMap)
+    {
+        Double maxValue = getMaxEntryInMap(nameMap).getValue();
+        nameMap.values().removeIf(value -> !value.equals(maxValue));
+
+        return nameMap;
     }
 
     public double averageRankForName(String name, String gender, int startYear, int endYear)
@@ -276,17 +284,20 @@ public class BabyNamesAnalysis
         for (Individual person: reader.getIndividualsInRange(startYear, endYear))
         {
             String name = person.getName();
-            YearOfBirthFile
             if (isNameInYearRange(startYear, endYear, name, gender))
             {
-                namesAtRank.putIfAbsent(name, 0.0);
-                namesAtRank.put(name, (double) (person. ? 1 :0));
-
-                namesAtRank.put(name, averageRankForName(name, gender, startYear, endYear) * -1);
+                /*namesAtRank.putIfAbsent(name, 0.0);
+                namesAtRank.put(name,  namesAtRank.get(name) + (double) (person.getRank() == rank ? 1 :0));
+                 */
+                if (person.getRank() == rank)
+                {
+                    namesAtRank.putIfAbsent(name, 0.0);
+                    namesAtRank.put(name, namesAtRank.get(name) + 1);
+                }
             }
         }
 
-        String highestAverageRankedName = getMaxEntryInMap(averageRanks).getKey();
-        return highestAverageRankedName;
+        //Map<String, Double> maxNamesAtRank = getMaxEntriesInMap(namesAtRank);
+        return namesAtRank;
     }
 }
