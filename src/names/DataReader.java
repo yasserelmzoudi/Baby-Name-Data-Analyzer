@@ -53,7 +53,7 @@ public class DataReader
                         unchanged = false;
                     }
 
-                    Individual person = new Individual(name, gender, count, currentLine + 1 - dataFile.getGenderChangeIndex());
+                    Individual person = new Individual(name, gender, count, currentLine + 1 - dataFile.getGenderChangeIndex(), dataFile);
                     dataFile.add(person);
                 }
             }

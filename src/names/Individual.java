@@ -8,19 +8,21 @@ public class Individual
     private String gender;
     private int occurrences;
     private int rank;
+    private YearOfBirthFile fileLocatedIn;
 
-    public Individual(String name, String gender, int occurrences, int rank)
+    public Individual(String name, String gender, int occurrences, int rank, YearOfBirthFile fileLocatedIn)
     {
         this.name = name;
         this.gender = gender;
         this.occurrences = occurrences;
         this.rank = rank;
+        this.fileLocatedIn = fileLocatedIn;
     }
 
 
     public Individual(String name, String gender)
     {
-        this(name, gender, -1 ,-1);
+        this(name, gender, -1 ,-1, null);
     }
 
     public String getName()

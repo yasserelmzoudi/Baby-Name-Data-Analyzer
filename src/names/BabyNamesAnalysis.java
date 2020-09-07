@@ -269,4 +269,24 @@ public class BabyNamesAnalysis
 
         return namesAtRank;
     }
+
+    public Map<String, Double> namesMostOftenAtRank(int startYear, int endYear, String gender, int rank)
+    {
+        Map<String, Double> namesAtRank = new HashMap<>();
+        for (Individual person: reader.getIndividualsInRange(startYear, endYear))
+        {
+            String name = person.getName();
+            YearOfBirthFile
+            if (isNameInYearRange(startYear, endYear, name, gender))
+            {
+                namesAtRank.putIfAbsent(name, 0.0);
+                namesAtRank.put(name, (double) (person. ? 1 :0));
+
+                namesAtRank.put(name, averageRankForName(name, gender, startYear, endYear) * -1);
+            }
+        }
+
+        String highestAverageRankedName = getMaxEntryInMap(averageRanks).getKey();
+        return highestAverageRankedName;
+    }
 }
