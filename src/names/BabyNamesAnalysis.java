@@ -261,6 +261,12 @@ public class BabyNamesAnalysis
 
     public List<String> namesAtRankInRange(int startYear, int endYear, String gender, int rank)
     {
+        List<String> namesAtRank = new ArrayList<>();
+        for (YearOfBirthFile file : reader.getFilesInRange(startYear, endYear))
+        {
+            namesAtRank.add(file.getNameRank(rank, gender));
+        }
 
+        return namesAtRank;
     }
 }

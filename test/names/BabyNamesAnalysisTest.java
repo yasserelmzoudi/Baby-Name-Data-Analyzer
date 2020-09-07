@@ -169,6 +169,18 @@ class BabyNamesAnalysisTest {
 
     }
 
+    @Test
+    void namesMostOftenAtRank() throws Exception {
+        DataReader testReading = new DataReader("read_test");
+        BabyNamesAnalysis q14 = new BabyNamesAnalysis(testReading);
+
+        Map<String, Double> expectedNamesMostOftenAtRank = new HashMap<>();
+        expectedNamesMostOftenAtRank.put("Alex", 4.0);
+        Map<String, Double> actualNamesMostOftenAtRank = q14.namesMostOftenAtRank(1111, 1117, "M", 2);
+
+        assertEquals(expectedNamesMostOftenAtRank, actualNamesMostOftenAtRank);
+    }
+
 
 
 
