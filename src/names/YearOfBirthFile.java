@@ -1,7 +1,9 @@
 package names;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class YearOfBirthFile
 {
@@ -81,9 +83,9 @@ public class YearOfBirthFile
         return getNameRank(1, gender);
     }
 
-    public List<Individual> namesLetter(String gender, char letter)
+    public Set<Individual> namesLetter(String gender, char letter)
     {
-        List<Individual> people = new ArrayList<>();
+        Set<Individual> people = new HashSet<>();
         for (Individual person: myIndividuals)
         {
             String name = person.getName();
@@ -95,12 +97,23 @@ public class YearOfBirthFile
         return people;
     }
 
+    public Set<String> getNamesFromIndividuals(Set<Individual> people)
+    {
+        Set<String> namesFromIndividuals = new HashSet<>();
+        for (Individual person : people)
+        {
+            namesFromIndividuals.add(person.getName());
+        }
+
+        return namesFromIndividuals;
+    }
+
     public int totalBabies(String gender, char letter)
     {
         return totalCount(namesLetter(gender, letter));
     }
 
-    public int totalCount(List<Individual> people)
+    public int totalCount(Set<Individual> people)
     {
         int totalCount = 0;
         for (Individual person: people)

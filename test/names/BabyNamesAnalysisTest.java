@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -84,8 +85,8 @@ class BabyNamesAnalysisTest {
         DataReader testReading = new DataReader("read_test");
         BabyNamesAnalysis q6 = new BabyNamesAnalysis(testReading);
 
-        List<String> expectedMostPopularLetter = List.of("Imma", "Isabella");
-        List<String> actualMostPopularLetter = q6.mostPopularLetter(1111, 1114);
+        Set<String> expectedMostPopularLetter = Set.of("Imma", "Isabella");
+        Set<String> actualMostPopularLetter = q6.mostPopularLetter(1111, 1114);
         assertEquals(expectedMostPopularLetter, actualMostPopularLetter);
     }
 

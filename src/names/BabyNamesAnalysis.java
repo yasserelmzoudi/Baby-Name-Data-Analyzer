@@ -60,51 +60,17 @@ public class BabyNamesAnalysis
         return namesMostOftenAtRank(startYear, endYear, gender, 1);
     }
 
-    public List<String> mostPopularLetter(int startYear, int endYear)
+    public Set<String> mostPopularLetter(int startYear, int endYear)
     {
-        Map<String, Integer> letterFrequency = new HashMap<>();
-        List<String> result = new ArrayList<>();
-
-        for (int year = startYear; year <= endYear; year++)
+        Map<String, Double> letterFrequency = new HashMap<>();
+        for (char letter = 'A'; letter <= 'Z'; letter++)
         {
-            YearOfBirthFile file = reader.getYearOfBirthFile(year);
-
-            for (char letter = 'A'; letter <= 'Z'; letter++)
-            {
-                letterFrequency.putIfAbsent(letter + "", 0);
-                letterFrequency.put(letter + "", letterFrequency.get(letter + "") + file.totalBabies("F", letter));
-            }
+            letterFrequency.put(String.valueOf(letter), reader.nameBabyCountFromLetter(startYear, endYear, "F", letter));
         }
 
-        int maxLetter = Collections.max(letterFrequency.values());
-        String[] keys = letterFrequency.keySet().toArray(new String[0]);
-        Arrays.sort(keys);
+        String mostPopularLetter = getMaxEntryInMap(letterFrequency).getKey();
 
-        List<Individual> peopleFirstLetter = new ArrayList<>();
-        for (String key : keys)
-        {
-            if (letterFrequency.get(key) == maxLetter)
-            {
-                for (int year = startYear; year <= endYear; year++)
-                {
-                    YearOfBirthFile file = reader.getYearOfBirthFile(year);
-                    peopleFirstLetter.addAll(file.namesLetter("F", key.charAt(0)));
-                }
-                break;
-            }
-        }
-
-        for (Individual person : peopleFirstLetter)
-        {
-            if (!result.contains(person.getName()))
-            {
-                result.add(person.getName());
-            }
-        }
-
-        Collections.sort(result);
-
-        return result;
+        return reader.getNamesWithFirstLetter(startYear, endYear, "F", mostPopularLetter.charAt(0));
     }
 
     public Map<Integer, Integer> allRankingsRange(String name, String gender, int startYear, int endYear)
