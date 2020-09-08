@@ -13,7 +13,7 @@ class BabyNamesAnalysisTest {
 
   @Test
   void topRanked_standard() throws Exception {
-    DataReader testReading = new DataReader("read_test");
+    DataReader testReading = new DataReader("read_test", false);
     BabyNamesAnalysis q1 = new BabyNamesAnalysis(testReading);
 
     String[] expectedRank = {"Isabella", "Alex"};
@@ -24,7 +24,7 @@ class BabyNamesAnalysisTest {
 
   @Test
   void nameBabyCount() throws Exception {
-    DataReader testReading = new DataReader("read_test");
+    DataReader testReading = new DataReader("read_test", false);
     BabyNamesAnalysis q2 = new BabyNamesAnalysis(testReading);
 
     int[] expectedNameBabyCount = {2, 70};
@@ -35,7 +35,7 @@ class BabyNamesAnalysisTest {
 
   @Test
   void allRankings() throws Exception {
-    DataReader testReading = new DataReader("read_test");
+    DataReader testReading = new DataReader("read_test", false);
     BabyNamesAnalysis q3 = new BabyNamesAnalysis(testReading);
 
     Map<Integer, Integer> expectedRankings = new HashMap<>();
@@ -52,7 +52,7 @@ class BabyNamesAnalysisTest {
 
   @Test
   void todayName_male_standard() throws Exception {
-    DataReader testReading = new DataReader("read_test");
+    DataReader testReading = new DataReader("read_test", false);
     BabyNamesAnalysis q4 = new BabyNamesAnalysis(testReading);
 
     String expectedTodayName = "Flex";
@@ -63,7 +63,7 @@ class BabyNamesAnalysisTest {
 
   @Test
   void todayName_female_standard() throws Exception {
-    DataReader testReading = new DataReader("read_test");
+    DataReader testReading = new DataReader("read_test", false);
     BabyNamesAnalysis q4 = new BabyNamesAnalysis(testReading);
 
     String expectedTodayName = "Imma";
@@ -74,7 +74,7 @@ class BabyNamesAnalysisTest {
 
   @Test
   void mostPopularNames() throws Exception {
-    DataReader testReading = new DataReader("read_test");
+    DataReader testReading = new DataReader("read_test", false);
     BabyNamesAnalysis q5 = new BabyNamesAnalysis(testReading);
 
     Map<String, Double> expectedMostPopularNames = new HashMap<>();
@@ -86,7 +86,7 @@ class BabyNamesAnalysisTest {
 
   @Test
   void mostPopularLetter() throws Exception {
-    DataReader testReading = new DataReader("read_test");
+    DataReader testReading = new DataReader("read_test", false);
     BabyNamesAnalysis q6 = new BabyNamesAnalysis(testReading);
 
     Set<String> expectedMostPopularLetter = Set.of("Imma", "Isabella");
@@ -97,7 +97,7 @@ class BabyNamesAnalysisTest {
 
   @Test
   void allRankingsRange() throws Exception {
-    DataReader testReading = new DataReader("read_test");
+    DataReader testReading = new DataReader("read_test", false);
     BabyNamesAnalysis q7 = new BabyNamesAnalysis(testReading);
 
     Map<Integer, Integer> expectedRankings = new HashMap<>();
@@ -110,7 +110,7 @@ class BabyNamesAnalysisTest {
 
   @Test
   void differenceInRank() throws Exception {
-    DataReader testReading = new DataReader("read_test");
+    DataReader testReading = new DataReader("read_test", false);
     BabyNamesAnalysis q8 = new BabyNamesAnalysis(testReading);
 
     int expectedDifference = -1;
@@ -122,7 +122,7 @@ class BabyNamesAnalysisTest {
 
   @Test
   void mostVolatileName() throws Exception {
-    DataReader testReading = new DataReader("read_test");
+    DataReader testReading = new DataReader("read_test", false);
     BabyNamesAnalysis q9 = new BabyNamesAnalysis(testReading);
 
     String expectedMostVolatileName = "Yasser";
@@ -133,7 +133,7 @@ class BabyNamesAnalysisTest {
 
   @Test
   void averageRankForName() throws Exception {
-    DataReader testReading = new DataReader("read_test");
+    DataReader testReading = new DataReader("read_test", false);
     BabyNamesAnalysis q10 = new BabyNamesAnalysis(testReading);
 
     double expectedAverageRank = 4.5;
@@ -144,7 +144,7 @@ class BabyNamesAnalysisTest {
 
   @Test
   void highestAverageRank() throws Exception {
-    DataReader testReading = new DataReader("read_test");
+    DataReader testReading = new DataReader("read_test", false);
     BabyNamesAnalysis q11 = new BabyNamesAnalysis(testReading);
 
     String expectedHighestAverageRankedName = "Aohn";
@@ -155,7 +155,7 @@ class BabyNamesAnalysisTest {
 
   @Test
   void recentAverageRank() throws Exception {
-    DataReader testReading = new DataReader("read_test");
+    DataReader testReading = new DataReader("read_test", false);
     BabyNamesAnalysis q12 = new BabyNamesAnalysis(testReading);
 
     double expectedRecentAverageRank = 5.25;
@@ -167,7 +167,7 @@ class BabyNamesAnalysisTest {
 
   @Test
   void namesAtRankInRange() throws Exception {
-    DataReader testReading = new DataReader("read_test");
+    DataReader testReading = new DataReader("read_test", false);
     BabyNamesAnalysis q13 = new BabyNamesAnalysis(testReading);
 
     List<String> expectedNamesAtRankInRange = List
@@ -180,7 +180,7 @@ class BabyNamesAnalysisTest {
 
   @Test
   void namesMostOftenAtRank() throws Exception {
-    DataReader testReading = new DataReader("read_test");
+    DataReader testReading = new DataReader("read_test", false);
     BabyNamesAnalysis q14 = new BabyNamesAnalysis(testReading);
 
     Map<String, Double> expectedNamesMostOftenAtRank = new HashMap<>();
