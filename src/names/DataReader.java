@@ -37,29 +37,47 @@ public class DataReader {
 
         List<String> readFile = Files.readAllLines(file.toPath());
 
-        String currentGender = readFile.get(0).split(",")[1];
+        String currentGender = getIndividualData(readFile.get(0), 1);
         boolean unchanged = true;
 
         for (int currentLine = 0; currentLine < readFile.size(); currentLine++) {
           String line = readFile.get(currentLine);
 
-          String name = line.split(",")[0];
-          String gender = line.split(",")[1];
-          int count = Integer.parseInt(line.split(",")[2]);
+          String name = getIndividualData(line, 0);
+          String gender = getIndividualData(line, 1);
+          int count = Integer.parseInt(getIndividualData(line, 2));
 
-          if (unchanged && !gender.equals(currentGender)) {
-            dataFile.setGenderChangeIndex(currentLine);
-            unchanged = false;
-          }
+          unchanged = setGenderChangeIndexForYearOfBirthFile(dataFile, currentGender, unchanged,
+              currentLine,
+              gender);
 
-          Individual person = new Individual(name, gender, count,
-              currentLine + 1 - dataFile.getGenderChangeIndex(), dataFile);
-          dataFile.add(person);
+          addIndividualToYearOfBirthFile(dataFile, currentLine, name, gender, count);
         }
       }
     } catch (Exception e) {
       throw new Exception("Invalid file", e);
     }
+  }
+
+
+  private String getIndividualData(String line, int index) {
+    return line.split(",")[index];
+  }
+
+  private boolean setGenderChangeIndexForYearOfBirthFile(YearOfBirthFile dataFile,
+      String currentGender, boolean unchanged, int currentLine, String gender) {
+    if (unchanged && !gender.equals(currentGender)) {
+      dataFile.setGenderChangeIndex(currentLine);
+      unchanged = false;
+    }
+    return unchanged;
+  }
+
+  public void addIndividualToYearOfBirthFile(YearOfBirthFile dataFile, int currentLine,
+      String name, String gender, int count) {
+    Individual person = new Individual(name, gender, count,
+        currentLine + 1 - dataFile.getGenderChangeIndex(), dataFile);
+    dataFile.add(person);
   }
 
   public List<Integer> getYears() {
