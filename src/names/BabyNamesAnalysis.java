@@ -54,11 +54,11 @@ public class BabyNamesAnalysis {
 
   public Set<String> mostPopularLetter(int startYear, int endYear) {
     Map<String, Double> letterFrequency = new HashMap<>();
+
     for (char letter = 'A'; letter <= 'Z'; letter++) {
       letterFrequency.put(String.valueOf(letter),
           reader.nameBabyCountFromLetter(startYear, endYear, "F", letter));
     }
-
     String mostPopularLetter = getMaxEntryInMap(letterFrequency).getKey();
 
     return reader.getNamesWithFirstLetter(startYear, endYear, "F", mostPopularLetter.charAt(0));
@@ -103,6 +103,7 @@ public class BabyNamesAnalysis {
 
   public String mostVolatileName(int startYear, int endYear, String gender) {
     Map<String, Double> rankDifferences = new HashMap<>();
+
     for (Individual person : reader.getIndividualsInRange(startYear, endYear)) {
       String name = person.getName();
       if (isNameInYear(startYear, name, gender) && isNameInYear(endYear, name, gender)) {
@@ -110,10 +111,9 @@ public class BabyNamesAnalysis {
             .put(name, (double) Math.abs(differenceInRank(startYear, endYear, name, gender)));
       }
     }
-
     String mostVolatileName = getMaxEntryInMap(rankDifferences).getKey();
-    return mostVolatileName;
 
+    return mostVolatileName;
   }
 
   private Map.Entry<String, Double> getMaxEntryInMap(Map<String, Double> nameMap) {
@@ -153,14 +153,15 @@ public class BabyNamesAnalysis {
 
   public String highestAverageRank(int startYear, int endYear, String gender) {
     Map<String, Double> averageRanks = new HashMap<>();
+
     for (Individual person : reader.getIndividualsInRange(startYear, endYear)) {
       String name = person.getName();
       if (isNameInYear(startYear, name, gender) && isNameInYear(endYear, name, gender)) {
         averageRanks.put(name, averageRankForName(name, gender, startYear, endYear) * -1);
       }
     }
-
     String highestAverageRankedName = getMaxEntryInMap(averageRanks).getKey();
+
     return highestAverageRankedName;
   }
 
@@ -175,6 +176,7 @@ public class BabyNamesAnalysis {
 
   public List<String> namesAtRankInRange(int startYear, int endYear, String gender, int rank) {
     List<String> namesAtRank = new ArrayList<>();
+
     for (YearOfBirthFile file : reader.getFilesInRange(startYear, endYear)) {
       namesAtRank.add(file.getNameRank(rank, gender));
     }
@@ -186,6 +188,7 @@ public class BabyNamesAnalysis {
       int rank) {
     Map<String, Double> namesAtRankWithCount = new HashMap<>();
     List<String> namesAtRank = namesAtRankInRange(startYear, endYear, gender, rank);
+
     for (Individual person : reader.getIndividualsInRange(startYear, endYear)) {
       String name = person.getName();
       if (isNameInYearRange(startYear, endYear, name, gender)) {
@@ -194,8 +197,8 @@ public class BabyNamesAnalysis {
         }
       }
     }
-
     Map<String, Double> maxNamesAtRank = getMaxEntriesInMap(namesAtRankWithCount);
+
     return maxNamesAtRank;
   }
 }
