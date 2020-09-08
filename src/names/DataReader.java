@@ -1,6 +1,11 @@
 package names;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -13,6 +18,8 @@ import java.util.Set;
 
 
 public class DataReader {
+
+  private static final String URL_LOCATION = "https://www2.cs.duke.edu/courses/fall20/compsci307d/assign/01_data/data/ssa_complete/";
 
   private List<Integer> years;
   private List<YearOfBirthFile> data;
@@ -40,31 +47,60 @@ public class DataReader {
         String currentGender = getIndividualData(readFile.get(0), 1);
         boolean unchanged = true;
 
-        for (int currentLine = 0; currentLine < readFile.size(); currentLine++) {
-          String line = readFile.get(currentLine);
-
-          String name = getIndividualData(line, 0);
-          String gender = getIndividualData(line, 1);
-          int count = Integer.parseInt(getIndividualData(line, 2));
-
-          unchanged = setGenderChangeIndexForYearOfBirthFile(dataFile, currentGender, unchanged,
-              currentLine,
-              gender);
-
-          addIndividualToYearOfBirthFile(dataFile, currentLine, name, gender, count);
-        }
+        iterateThroughDataLines(dataFile, readFile, currentGender, unchanged);
       }
     } catch (Exception e) {
       throw new Exception("Invalid file", e);
     }
   }
 
+  public void iterateThroughDataLines(YearOfBirthFile dataFile, List<String> readFile,
+      String currentGender, boolean unchanged) {
+    for (int currentLine = 0; currentLine < readFile.size(); currentLine++) {
+      String line = readFile.get(currentLine);
 
-  private String getIndividualData(String line, int index) {
+      String name = getIndividualData(line, 0);
+      String gender = getIndividualData(line, 1);
+      int count = Integer.parseInt(getIndividualData(line, 2));
+
+      unchanged = setGenderChangeIndexForYearOfBirthFile(dataFile, currentGender, unchanged,
+          currentLine,
+          gender);
+
+      addIndividualToYearOfBirthFile(dataFile, currentLine, name, gender, count);
+    }
+  }
+
+  public void setYearsFromURL() throws Exception {
+    URL webData = new URL(URL_LOCATION);
+    BufferedReader webReader = new BufferedReader(new InputStreamReader(webData.openStream()));
+
+    while (webReader.readLine() != null)
+    {
+      String removedHTML = webReader.readLine().replaceAll("<.*?>", "");
+      int year = getYearFromFileName(removedHTML);
+      years.add(year);
+    }
+  }
+
+  public int getYearFromFileName(String fileName)
+  {
+    String year = "";
+    for (char character : fileName.toCharArray())
+    {
+      if (Character.isDigit(character))
+      {
+        year += character;
+      }
+    }
+    return Integer.parseInt(year);
+  }
+
+  public String getIndividualData(String line, int index) {
     return line.split(",")[index];
   }
 
-  private boolean setGenderChangeIndexForYearOfBirthFile(YearOfBirthFile dataFile,
+  public boolean setGenderChangeIndexForYearOfBirthFile(YearOfBirthFile dataFile,
       String currentGender, boolean unchanged, int currentLine, String gender) {
     if (unchanged && !gender.equals(currentGender)) {
       dataFile.setGenderChangeIndex(currentLine);
