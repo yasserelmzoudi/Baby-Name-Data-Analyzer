@@ -24,8 +24,10 @@ public class DataReader {
 
   private List<Integer> years;
   private List<YearOfBirthFile> data;
+  private String dataSet;
 
   public DataReader(String dataSet, boolean isURL) throws Exception {
+    this.dataSet = dataSet;
     years = new ArrayList<>();
     data = new ArrayList<>();
     readDataSet(dataSet, isURL);
@@ -35,17 +37,31 @@ public class DataReader {
     try {
       if (isURL) {
         setYearsFromURL();
-      }
-      else {
+      } else {
         setYearFromDirectory(dataSet);
       }
 
-      for (int year: years)
-      {
+      Collections.sort(years);
+      for (int year : years) {
+        List<String> readData = new ArrayList<>();
+        if (isURL) {
+          readData = readFromURL(year);
+        } else {
+          readData = readFromDirectory(year);
+        }
 
+        YearOfBirthFile dataFile = createYearOfBirthFile(year);
+
+        String currentGender = getIndividualData(readData.get(0), 1);
+        boolean unchanged = true;
+
+        iterateThroughDataLines(dataFile, readData, currentGender, unchanged);
       }
-
-      Path path = Paths.get(DataReader.class.getClassLoader().getResource(dataSet).toURI());
+    } catch (Exception e) {
+      throw new Exception("Invalid file", e);
+    }
+  }
+      /*Path path = Paths.get(DataReader.class.getClassLoader().getResource(dataSet).toURI());
       File[] files = path.toFile().listFiles();
       Arrays.sort(files);
       for (File file : files) {
@@ -64,23 +80,25 @@ public class DataReader {
     } catch (Exception e) {
       throw new Exception("Invalid file", e);
     }
+  }*/
+
+  public List<String> readFromDirectory(int year) throws Exception {
+    Path path = Paths.get(DataReader.class.getClassLoader().getResource(dataSet + "/yob" + year + ".txt").toURI());
+
+    List<String> readData = Files.readAllLines(path);
+    return readData;
   }
 
-  public List<String> readFromURL() throws Exception {
+  public List<String> readFromURL(int year) throws Exception {
+    String urlName = "yob" + year + ".txt";
+    URL webData = new URL(URL_LOCATION + urlName);
+    BufferedReader webReader = new BufferedReader(new InputStreamReader(webData.openStream()));
+
+    String individualData;
     List<String> readData = new ArrayList<>();
-    for (int year: years)
-    {
-      String urlName = "yob" + year + ".txt";
-      URL webData = new URL(URL_LOCATION + urlName);
-      BufferedReader webReader = new BufferedReader(new InputStreamReader(webData.openStream()));
 
-      YearOfBirthFile dataFile = new YearOfBirthFile(year);
-      data.add(dataFile);
-
-      String individualData;
-      while ((individualData = webReader.readLine()) != null) {
-        readData.add(individualData);
-      }
+    while ((individualData = webReader.readLine()) != null) {
+      readData.add(individualData);
     }
     return readData;
   }
@@ -89,11 +107,15 @@ public class DataReader {
     URL webData = new URL(URL_LOCATION);
     BufferedReader webReader = new BufferedReader(new InputStreamReader(webData.openStream()));
 
-    while (webReader.readLine() != null)
-    {
-      String removedHTML = webReader.readLine().replaceAll("<.*?>", "");
-      int year = getYearFromFileName(removedHTML);
-      years.add(year);
+    String file;
+    while ((file = webReader.readLine()) != null) {
+      String removedHTML = file.replaceAll("<.*?>", "");
+      if (removedHTML.startsWith("yob"))
+      {
+        //int year = getYearFromFileName(removedHTML);
+        int year = Integer.parseInt(removedHTML.substring(3,7));
+        years.add(year);
+      }
     }
   }
 
@@ -135,7 +157,7 @@ public class DataReader {
     String year = "";
     for (char character : fileName.toCharArray())
     {
-      if (Character.isDigit(character))
+      if (Character.isDigit(character) && year.length() < 4)
       {
         year += character;
       }
