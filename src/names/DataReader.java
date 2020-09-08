@@ -4,12 +4,14 @@ import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.Year;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
-/**
- * Feel free to completely change this code or delete it entirely.
- */
+
 public class DataReader {
 
   private List<Integer> years;
@@ -100,17 +102,21 @@ public class DataReader {
 
   public Set<Individual> getIndividualsInRange(int startYear, int endYear) {
     Set<Individual> individualsInRange = new HashSet<>();
+
     for (YearOfBirthFile file : getFilesInRange(startYear, endYear)) {
       individualsInRange.addAll(file.getMyIndividuals());
     }
+
     return individualsInRange;
   }
 
   public double nameBabyCountFromLetter(int startYear, int endYear, String gender, char letter) {
     double letterCount = 0.0;
+
     for (YearOfBirthFile file : getFilesInRange(startYear, endYear)) {
       letterCount += file.totalBabies(gender, letter);
     }
+
     return letterCount;
   }
 
@@ -124,6 +130,7 @@ public class DataReader {
       namesWithFirstLetter.addAll(file.getNamesFromIndividuals(individualsWithFirstLetter));
 
     }
+
     return namesWithFirstLetter;
   }
 }

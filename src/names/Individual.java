@@ -19,7 +19,6 @@ public class Individual {
     this.fileLocatedIn = fileLocatedIn;
   }
 
-
   public Individual(String name, String gender) {
     this(name, gender, -1, -1, null);
   }

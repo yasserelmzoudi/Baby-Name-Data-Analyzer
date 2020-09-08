@@ -34,7 +34,7 @@ public class YearOfBirthFile {
 
     Individual foundIndividual = null;
 
-    if (myIndividuals.indexOf(desiredIndividual) != -1) {
+    if (myIndividuals.contains(desiredIndividual)) {
       foundIndividual = myIndividuals.get(myIndividuals.indexOf(desiredIndividual));
     }
     return foundIndividual;
