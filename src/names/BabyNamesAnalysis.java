@@ -1,5 +1,6 @@
 package names;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -10,6 +11,8 @@ import java.util.Set;
 public class BabyNamesAnalysis {
 
   private DataReader reader;
+  private static final String MALE = "M";
+  private static final String FEMALE = "F";
 
   public BabyNamesAnalysis(DataReader reader) {
     this.reader = reader;
@@ -20,8 +23,8 @@ public class BabyNamesAnalysis {
 
     for (YearOfBirthFile file : reader.getData()) {
       if (file.getMyYear() == year) {
-        result[0] = file.topRankedName("F");
-        result[1] = file.topRankedName("M");
+        result[0] = file.topRankedName(FEMALE);
+        result[1] = file.topRankedName(MALE);
       }
     }
 
@@ -62,11 +65,11 @@ public class BabyNamesAnalysis {
 
     for (char letter = 'A'; letter <= 'Z'; letter++) {
       letterFrequency.put(String.valueOf(letter),
-          reader.nameBabyCountFromLetter(startYear, endYear, "F", letter));
+          reader.nameBabyCountFromLetter(startYear, endYear, FEMALE, letter));
     }
     String mostPopularLetter = getMaxEntryInMap(letterFrequency).getKey();
 
-    return reader.getNamesWithFirstLetter(startYear, endYear, "F", mostPopularLetter.charAt(0));
+    return reader.getNamesWithFirstLetter(startYear, endYear, FEMALE, mostPopularLetter.charAt(0));
   }
 
   public Map<Integer, Integer> allRankingsRange(String name, String gender, int startYear,
@@ -205,5 +208,52 @@ public class BabyNamesAnalysis {
     Map<String, Double> maxNamesAtRank = getMaxEntriesInMap(namesAtRankWithCount);
 
     return maxNamesAtRank;
+  }
+
+  public static void main(String[] args) throws Exception {
+    DataReader testReading = new DataReader("ssa_complete", false);
+    BabyNamesAnalysis completeAnalysis = new BabyNamesAnalysis(testReading);
+
+    System.out.println(Arrays.toString(completeAnalysis.topRanked(2000)));
+    System.out.println("");
+    System.out.println(Arrays.toString(completeAnalysis.nameBabyCount(2000, "M", 'J')));
+    System.out.println("");
+    Map<Integer, Integer> allRankings = completeAnalysis.allRankings("Jim", "M");
+    for (Integer key : allRankings.keySet()) {
+      System.out.println(key + ":" + allRankings.get(key));
+    }
+    System.out.println("");
+    System.out.println(completeAnalysis.todayName("Jim", "M", 2000));
+    System.out.println("");
+    Map<String, Double> mostPopularNames = completeAnalysis.mostPopularNames(2000, 2018, "M");
+    for (String key : mostPopularNames.keySet()) {
+      System.out.println(key + ":" + mostPopularNames.get(key));
+    }
+    System.out.println("");
+    System.out.println(completeAnalysis.mostPopularLetter(1111, 1114));
+    System.out.println("");
+    Map<Integer, Integer> actualRankings = completeAnalysis
+        .allRankingsRange("Jim", "M", 2000, 2018);
+    for (Integer key : actualRankings.keySet()) {
+      System.out.println(key + ":" + actualRankings.get(key));
+    }
+    System.out.println("");
+    System.out.println(completeAnalysis.differenceInRank(2010, 2018, "Jim", "M"));
+    System.out.println("");
+    System.out.println(completeAnalysis.mostVolatileName(2000, 2018, "M"));
+    System.out.println("");
+    System.out.println(completeAnalysis.averageRankForName("Jim", "M", 2000, 2013));
+    System.out.println("");
+    System.out.println(completeAnalysis.highestAverageRank(2000, 2018, "M"));
+    System.out.println("");
+    System.out.println(completeAnalysis.recentAverageRank("Jim", "M", 18));
+    System.out.println("");
+    System.out.println(completeAnalysis.namesAtRankInRange(2000, 2018, "M", 28));
+    System.out.println("");
+    Map<String, Double> namesMostOftenAtRank = completeAnalysis
+        .namesMostOftenAtRank(2000, 2018, "M", 28);
+    for (String key : namesMostOftenAtRank.keySet()) {
+      System.out.println(key + ":" + namesMostOftenAtRank.get(key));
+    }
   }
 }

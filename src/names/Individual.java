@@ -39,10 +39,6 @@ public class Individual {
     return rank;
   }
 
-  public YearOfBirthFile getFileLocatedIn() {
-    return fileLocatedIn;
-  }
-
   @Override
   public String toString() {
     return name;

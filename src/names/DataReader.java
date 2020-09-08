@@ -2,9 +2,7 @@ package names;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
@@ -21,6 +19,12 @@ import java.util.Set;
 public class DataReader {
 
   private static final String URL_LOCATION = "https://www2.cs.duke.edu/courses/fall20/compsci307d/assign/01_data/data/ssa_complete/";
+  private static final String FILE_START = "yob";
+  private static final String FILE_EXTENSION = ".txt";
+  private static final int NAME_INDEX = 0;
+  private static final int GENDER_INDEX = 1;
+  private static final int OCCURRENCES_INDEX = 2;
+  private static final int YEAR_LENGTH = 4;
 
   private List<Integer> years;
   private List<YearOfBirthFile> data;
@@ -52,7 +56,7 @@ public class DataReader {
 
         YearOfBirthFile dataFile = createYearOfBirthFile(year);
 
-        String currentGender = getIndividualData(readData.get(0), 1);
+        String currentGender = getIndividualData(readData.get(0), GENDER_INDEX);
         boolean unchanged = true;
 
         iterateThroughDataLines(dataFile, readData, currentGender, unchanged);
@@ -61,36 +65,17 @@ public class DataReader {
       throw new Exception("Invalid file", e);
     }
   }
-      /*Path path = Paths.get(DataReader.class.getClassLoader().getResource(dataSet).toURI());
-      File[] files = path.toFile().listFiles();
-      Arrays.sort(files);
-      for (File file : files) {
-        int year = getYearFromFileName(file.getName());
-        years.add(year);
-
-        YearOfBirthFile dataFile = createYearOfBirthFile(year);
-
-        List<String> readFile = Files.readAllLines(file.toPath());
-
-        String currentGender = getIndividualData(readFile.get(0), 1);
-        boolean unchanged = true;
-
-        iterateThroughDataLines(dataFile, readFile, currentGender, unchanged);
-      }
-    } catch (Exception e) {
-      throw new Exception("Invalid file", e);
-    }
-  }*/
 
   public List<String> readFromDirectory(int year) throws Exception {
-    Path path = Paths.get(DataReader.class.getClassLoader().getResource(dataSet + "/yob" + year + ".txt").toURI());
+    Path path = Paths.get(DataReader.class.getClassLoader()
+        .getResource(dataSet + "/" + FILE_START + year + FILE_EXTENSION).toURI());
 
     List<String> readData = Files.readAllLines(path);
     return readData;
   }
 
   public List<String> readFromURL(int year) throws Exception {
-    String urlName = "yob" + year + ".txt";
+    String urlName = FILE_START + year + FILE_EXTENSION;
     URL webData = new URL(URL_LOCATION + urlName);
     BufferedReader webReader = new BufferedReader(new InputStreamReader(webData.openStream()));
 
@@ -110,10 +95,8 @@ public class DataReader {
     String file;
     while ((file = webReader.readLine()) != null) {
       String removedHTML = file.replaceAll("<.*?>", "");
-      if (removedHTML.startsWith("yob"))
-      {
-        //int year = getYearFromFileName(removedHTML);
-        int year = Integer.parseInt(removedHTML.substring(3,7));
+      if (removedHTML.startsWith(FILE_START)) {
+        int year = getYearFromFileName(removedHTML);
         years.add(year);
       }
     }
@@ -134,9 +117,9 @@ public class DataReader {
     for (int currentLine = 0; currentLine < readFile.size(); currentLine++) {
       String line = readFile.get(currentLine);
 
-      String name = getIndividualData(line, 0);
-      String gender = getIndividualData(line, 1);
-      int count = Integer.parseInt(getIndividualData(line, 2));
+      String name = getIndividualData(line, NAME_INDEX);
+      String gender = getIndividualData(line, GENDER_INDEX);
+      int count = Integer.parseInt(getIndividualData(line, OCCURRENCES_INDEX));
 
       unchanged = setGenderChangeIndexForYearOfBirthFile(dataFile, currentGender, unchanged,
           currentLine,
@@ -152,13 +135,10 @@ public class DataReader {
     return dataFile;
   }
 
-  public int getYearFromFileName(String fileName)
-  {
+  public int getYearFromFileName(String fileName) {
     String year = "";
-    for (char character : fileName.toCharArray())
-    {
-      if (Character.isDigit(character) && year.length() < 4)
-      {
+    for (char character : fileName.toCharArray()) {
+      if (Character.isDigit(character) && year.length() < YEAR_LENGTH) {
         year += character;
       }
     }
