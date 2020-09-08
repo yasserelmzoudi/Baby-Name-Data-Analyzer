@@ -23,7 +23,40 @@ class BabyNamesAnalysisTest {
   }
 
   @Test
-  void nameBabyCount() throws Exception {
+  void topRanked_standard2() throws Exception {
+    DataReader testReading = new DataReader("read_test", false);
+    BabyNamesAnalysis q1 = new BabyNamesAnalysis(testReading);
+
+    String[] expectedRank = {"Imma", "Aohn"};
+    String[] actualRank = q1.topRanked(1112);
+
+    assertArrayEquals(expectedRank, actualRank);
+  }
+
+  @Test
+  void topRanked_standard3() throws Exception {
+    DataReader testReading = new DataReader("read_test", false);
+    BabyNamesAnalysis q1 = new BabyNamesAnalysis(testReading);
+
+    String[] expectedRank = {"Imma", "Aohn"};
+    String[] actualRank = q1.topRanked(1113);
+
+    assertArrayEquals(expectedRank, actualRank);
+  }
+
+  @Test
+  void topRanked_fromURL() throws Exception {
+    DataReader testReading = new DataReader("read_test", true);
+    BabyNamesAnalysis q1 = new BabyNamesAnalysis(testReading);
+
+    String[] expectedRank = {"Mary", "John"};
+    String[] actualRank = q1.topRanked(1880);
+
+    assertArrayEquals(expectedRank, actualRank);
+  }
+
+  @Test
+  void nameBabyCount_male() throws Exception {
     DataReader testReading = new DataReader("read_test", false);
     BabyNamesAnalysis q2 = new BabyNamesAnalysis(testReading);
 
@@ -34,7 +67,29 @@ class BabyNamesAnalysisTest {
   }
 
   @Test
-  void allRankings() throws Exception {
+  void nameBabyCount_female() throws Exception {
+    DataReader testReading = new DataReader("read_test", false);
+    BabyNamesAnalysis q2 = new BabyNamesAnalysis(testReading);
+
+    int[] expectedNameBabyCount = {2, 40};
+    int[] actualNameBabyCount = q2.nameBabyCount(1111, "F", 'I');
+
+    assertArrayEquals(expectedNameBabyCount, actualNameBabyCount);
+  }
+
+  @Test
+  void nameBabyCount_male2_lowercase() throws Exception {
+    DataReader testReading = new DataReader("read_test", false);
+    BabyNamesAnalysis q2 = new BabyNamesAnalysis(testReading);
+
+    int[] expectedNameBabyCount = {1, 20};
+    int[] actualNameBabyCount = q2.nameBabyCount(1111, "m", 'y');
+
+    assertArrayEquals(expectedNameBabyCount, actualNameBabyCount);
+  }
+
+  @Test
+  void allRankings_male() throws Exception {
     DataReader testReading = new DataReader("read_test", false);
     BabyNamesAnalysis q3 = new BabyNamesAnalysis(testReading);
 
@@ -46,6 +101,35 @@ class BabyNamesAnalysisTest {
     expectedRankings.put(1115, 2);
     expectedRankings.put(1116, 3);
     Map<Integer, Integer> actualRankings = q3.allRankings("Alex", "M");
+
+    assertEquals(expectedRankings, actualRankings);
+  }
+
+  @Test
+  void allRankings_female() throws Exception {
+    DataReader testReading = new DataReader("read_test", false);
+    BabyNamesAnalysis q3 = new BabyNamesAnalysis(testReading);
+
+    Map<Integer, Integer> expectedRankings = new HashMap<>();
+    expectedRankings.put(1111, 1);
+    expectedRankings.put(1112, 2);
+    expectedRankings.put(1113, 2);
+    expectedRankings.put(1114, 2);
+    expectedRankings.put(1115, 2);
+    expectedRankings.put(1116, 2);
+    expectedRankings.put(1117, 2);
+    Map<Integer, Integer> actualRankings = q3.allRankings("Isabella", "F");
+
+    assertEquals(expectedRankings, actualRankings);
+  }
+
+  @Test
+  void allRankings_noName() throws Exception {
+    DataReader testReading = new DataReader("read_test", false);
+    BabyNamesAnalysis q3 = new BabyNamesAnalysis(testReading);
+
+    Map<Integer, Integer> expectedRankings = new HashMap<>();
+    Map<Integer, Integer> actualRankings = q3.allRankings("", "M");
 
     assertEquals(expectedRankings, actualRankings);
   }

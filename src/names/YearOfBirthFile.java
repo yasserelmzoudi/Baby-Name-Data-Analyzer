@@ -44,10 +44,6 @@ public class YearOfBirthFile {
     genderChangeIndex = index;
   }
 
-  public boolean isNameInYear(String name, String gender) {
-    return getIndividual(name, gender) != null;
-  }
-
   public void add(Individual person) {
     if (!myIndividuals.contains(person)) {
       myIndividuals.add(person);
@@ -73,7 +69,7 @@ public class YearOfBirthFile {
     Set<Individual> people = new HashSet<>();
     for (Individual person : myIndividuals) {
       String name = person.getName();
-      if (name.charAt(0) == letter && person.getGender().equals(gender)) {
+      if (Character.toString(name.charAt(0)).equalsIgnoreCase(String.valueOf(letter)) && person.getGender().equalsIgnoreCase(gender)) {
         people.add(person);
       }
     }

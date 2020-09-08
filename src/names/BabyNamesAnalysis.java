@@ -78,7 +78,7 @@ public class BabyNamesAnalysis {
 
     for (YearOfBirthFile file : reader.getFilesInRange(startYear, endYear)) {
       for (Individual person : file.getMyIndividuals()) {
-        if (name.equals(person.getName()) && gender.equals(person.getGender())) {
+        if (name.equalsIgnoreCase(person.getName()) && gender.equalsIgnoreCase(person.getGender())) {
           allRankingsRange.putIfAbsent(file.getMyYear(), person.getRank());
         }
       }
