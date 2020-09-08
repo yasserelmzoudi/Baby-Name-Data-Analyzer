@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -32,7 +33,17 @@ public class DataReader {
 
   public void readDataSet(String dataSet, boolean isURL) throws Exception {
     try {
+      if (isURL) {
+        setYearsFromURL();
+      }
+      else {
+        setYearFromDirectory(dataSet);
+      }
 
+      for (int year: years)
+      {
+
+      }
 
       Path path = Paths.get(DataReader.class.getClassLoader().getResource(dataSet).toURI());
       File[] files = path.toFile().listFiles();
@@ -41,8 +52,7 @@ public class DataReader {
         int year = getYearFromFileName(file.getName());
         years.add(year);
 
-        YearOfBirthFile dataFile = new YearOfBirthFile(year);
-        data.add(dataFile);
+        YearOfBirthFile dataFile = createYearOfBirthFile(year);
 
         List<String> readFile = Files.readAllLines(file.toPath());
 
@@ -53,6 +63,47 @@ public class DataReader {
       }
     } catch (Exception e) {
       throw new Exception("Invalid file", e);
+    }
+  }
+
+  public List<String> readFromURL() throws Exception {
+    List<String> readData = new ArrayList<>();
+    for (int year: years)
+    {
+      String urlName = "yob" + year + ".txt";
+      URL webData = new URL(URL_LOCATION + urlName);
+      BufferedReader webReader = new BufferedReader(new InputStreamReader(webData.openStream()));
+
+      YearOfBirthFile dataFile = new YearOfBirthFile(year);
+      data.add(dataFile);
+
+      String individualData;
+      while ((individualData = webReader.readLine()) != null) {
+        readData.add(individualData);
+      }
+    }
+    return readData;
+  }
+
+  public void setYearsFromURL() throws Exception {
+    URL webData = new URL(URL_LOCATION);
+    BufferedReader webReader = new BufferedReader(new InputStreamReader(webData.openStream()));
+
+    while (webReader.readLine() != null)
+    {
+      String removedHTML = webReader.readLine().replaceAll("<.*?>", "");
+      int year = getYearFromFileName(removedHTML);
+      years.add(year);
+    }
+  }
+
+  public void setYearFromDirectory(String dataSet) throws URISyntaxException {
+    Path path = Paths.get(DataReader.class.getClassLoader().getResource(dataSet).toURI());
+    File[] files = path.toFile().listFiles();
+    Arrays.sort(files);
+    for (File file : files) {
+      int year = getYearFromFileName(file.getName());
+      years.add(year);
     }
   }
 
@@ -73,34 +124,10 @@ public class DataReader {
     }
   }
 
-  public void setYearsFromURL() throws Exception {
-    URL webData = new URL(URL_LOCATION);
-    BufferedReader webReader = new BufferedReader(new InputStreamReader(webData.openStream()));
-
-    while (webReader.readLine() != null)
-    {
-      String removedHTML = webReader.readLine().replaceAll("<.*?>", "");
-      int year = getYearFromFileName(removedHTML);
-      years.add(year);
-    }
-  }
-
-  public void readFromURL() throws Exception {
-    for (int year: years)
-    {
-      String urlName = "yob" + year + ".txt";
-      URL webData = new URL(URL_LOCATION + urlName);
-      BufferedReader webReader = new BufferedReader(new InputStreamReader(webData.openStream()));
-
-      YearOfBirthFile dataFile = new YearOfBirthFile(year);
-      data.add(dataFile);
-
-      String individualData;
-      List<String> readData = new ArrayList<>();
-      while ((individualData = webReader.readLine()) != null) {
-        readData.add(individualData);
-      }
-    }
+  public YearOfBirthFile createYearOfBirthFile(int year) {
+    YearOfBirthFile dataFile = new YearOfBirthFile(year);
+    data.add(dataFile);
+    return dataFile;
   }
 
   public int getYearFromFileName(String fileName)
