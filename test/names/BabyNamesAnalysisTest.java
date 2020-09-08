@@ -11,180 +11,184 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class BabyNamesAnalysisTest {
 
-    @Test
-    void topRanked_standard() throws Exception {
-        DataReader testReading = new DataReader("read_test");
-        BabyNamesAnalysis q1 = new BabyNamesAnalysis(testReading);
+  @Test
+  void topRanked_standard() throws Exception {
+    DataReader testReading = new DataReader("read_test");
+    BabyNamesAnalysis q1 = new BabyNamesAnalysis(testReading);
 
-        String[] expectedRank = {"Isabella", "Alex"};
-        String[] actualRank = q1.topRanked(1111);
-        assertArrayEquals(expectedRank, actualRank);
-    }
+    String[] expectedRank = {"Isabella", "Alex"};
+    String[] actualRank = q1.topRanked(1111);
 
-    @Test
-    void nameBabyCount() throws Exception {
-        DataReader testReading = new DataReader("read_test");
-        BabyNamesAnalysis q2 = new BabyNamesAnalysis(testReading);
+    assertArrayEquals(expectedRank, actualRank);
+  }
 
-        int[] expectedNameBabyCount = {2, 70};
-        int[] actualNameBabyCount = q2.nameBabyCount(1111, "M", 'A');
-        assertArrayEquals(expectedNameBabyCount, actualNameBabyCount);
-    }
+  @Test
+  void nameBabyCount() throws Exception {
+    DataReader testReading = new DataReader("read_test");
+    BabyNamesAnalysis q2 = new BabyNamesAnalysis(testReading);
 
-    @Test
-    void allRankings() throws Exception {
-        DataReader testReading = new DataReader("read_test");
-        BabyNamesAnalysis q3 = new BabyNamesAnalysis(testReading);
+    int[] expectedNameBabyCount = {2, 70};
+    int[] actualNameBabyCount = q2.nameBabyCount(1111, "M", 'A');
 
-        Map<Integer, Integer> expectedRankings = new HashMap<>();
-        expectedRankings.put(1111, 1);
-        expectedRankings.put(1112, 2);
-        expectedRankings.put(1113, 2);
-        expectedRankings.put(1114, 2);
-        expectedRankings.put(1115, 2);
-        expectedRankings.put(1116, 3);
+    assertArrayEquals(expectedNameBabyCount, actualNameBabyCount);
+  }
 
-        Map<Integer, Integer> actualRankings = q3.allRankings("Alex", "M");
-        assertEquals(expectedRankings, actualRankings);
-    }
+  @Test
+  void allRankings() throws Exception {
+    DataReader testReading = new DataReader("read_test");
+    BabyNamesAnalysis q3 = new BabyNamesAnalysis(testReading);
 
-    @Test
-    void todayName_male_standard() throws Exception {
-        DataReader testReading = new DataReader("read_test");
-        BabyNamesAnalysis q4 = new BabyNamesAnalysis(testReading);
+    Map<Integer, Integer> expectedRankings = new HashMap<>();
+    expectedRankings.put(1111, 1);
+    expectedRankings.put(1112, 2);
+    expectedRankings.put(1113, 2);
+    expectedRankings.put(1114, 2);
+    expectedRankings.put(1115, 2);
+    expectedRankings.put(1116, 3);
+    Map<Integer, Integer> actualRankings = q3.allRankings("Alex", "M");
 
-        String expectedTodayName = "Flex";
-        String actualTodayName = q4.todayName("Aohn", "M", 1111);
-        assertEquals(expectedTodayName, actualTodayName);
-    }
+    assertEquals(expectedRankings, actualRankings);
+  }
 
-    @Test
-    void todayName_female_standard() throws Exception {
-        DataReader testReading = new DataReader("read_test");
-        BabyNamesAnalysis q4 = new BabyNamesAnalysis(testReading);
+  @Test
+  void todayName_male_standard() throws Exception {
+    DataReader testReading = new DataReader("read_test");
+    BabyNamesAnalysis q4 = new BabyNamesAnalysis(testReading);
 
-        String expectedTodayName = "Imma";
-        String actualTodayName = q4.todayName("Isabella", "F", 1111);
-        assertEquals(expectedTodayName, actualTodayName);
-    }
+    String expectedTodayName = "Flex";
+    String actualTodayName = q4.todayName("Aohn", "M", 1111);
 
-    @Test
-    void mostPopularNames() throws Exception {
-        DataReader testReading = new DataReader("read_test");
-        BabyNamesAnalysis q5 = new BabyNamesAnalysis(testReading);
+    assertEquals(expectedTodayName, actualTodayName);
+  }
 
-        Map<String, Double> expectedMostPopularNames = new HashMap<>();
-        expectedMostPopularNames.put("Imma", 3.0);
-        Map<String, Double> actualMostPopularNames = q5.mostPopularNames(1111, 1114, "F");
+  @Test
+  void todayName_female_standard() throws Exception {
+    DataReader testReading = new DataReader("read_test");
+    BabyNamesAnalysis q4 = new BabyNamesAnalysis(testReading);
 
-        assertEquals(expectedMostPopularNames, actualMostPopularNames);
-    }
+    String expectedTodayName = "Imma";
+    String actualTodayName = q4.todayName("Isabella", "F", 1111);
 
-    @Test
-    void mostPopularLetter() throws Exception {
-        DataReader testReading = new DataReader("read_test");
-        BabyNamesAnalysis q6 = new BabyNamesAnalysis(testReading);
+    assertEquals(expectedTodayName, actualTodayName);
+  }
 
-        Set<String> expectedMostPopularLetter = Set.of("Imma", "Isabella");
-        Set<String> actualMostPopularLetter = q6.mostPopularLetter(1111, 1114);
-        assertEquals(expectedMostPopularLetter, actualMostPopularLetter);
-    }
+  @Test
+  void mostPopularNames() throws Exception {
+    DataReader testReading = new DataReader("read_test");
+    BabyNamesAnalysis q5 = new BabyNamesAnalysis(testReading);
 
-    @Test
-    void allRankingsRange() throws Exception {
-        DataReader testReading = new DataReader("read_test");
-        BabyNamesAnalysis q7 = new BabyNamesAnalysis(testReading);
+    Map<String, Double> expectedMostPopularNames = new HashMap<>();
+    expectedMostPopularNames.put("Imma", 3.0);
+    Map<String, Double> actualMostPopularNames = q5.mostPopularNames(1111, 1114, "F");
 
-        Map<Integer, Integer> expectedRankings = new HashMap<>();
-        expectedRankings.put(1112, 2);
-        expectedRankings.put(1113, 2);
+    assertEquals(expectedMostPopularNames, actualMostPopularNames);
+  }
 
-        Map<Integer, Integer> actualRankings = q7.allRankingsRange("Alex", "M", 1112, 1113);
-        assertEquals(expectedRankings, actualRankings);
-    }
+  @Test
+  void mostPopularLetter() throws Exception {
+    DataReader testReading = new DataReader("read_test");
+    BabyNamesAnalysis q6 = new BabyNamesAnalysis(testReading);
 
-    @Test
-    void differenceInRank() throws Exception {
-        DataReader testReading = new DataReader("read_test");
-        BabyNamesAnalysis q8 = new BabyNamesAnalysis(testReading);
+    Set<String> expectedMostPopularLetter = Set.of("Imma", "Isabella");
+    Set<String> actualMostPopularLetter = q6.mostPopularLetter(1111, 1114);
 
-        int expectedDifference = -1;
+    assertEquals(expectedMostPopularLetter, actualMostPopularLetter);
+  }
 
-        int actualDifference = q8.differenceInRank(1111, 1113, "Isabella", "F");
+  @Test
+  void allRankingsRange() throws Exception {
+    DataReader testReading = new DataReader("read_test");
+    BabyNamesAnalysis q7 = new BabyNamesAnalysis(testReading);
 
-        assertEquals(expectedDifference, actualDifference);
-    }
+    Map<Integer, Integer> expectedRankings = new HashMap<>();
+    expectedRankings.put(1112, 2);
+    expectedRankings.put(1113, 2);
+    Map<Integer, Integer> actualRankings = q7.allRankingsRange("Alex", "M", 1112, 1113);
 
-    @Test
-    void mostVolatileName() throws Exception {
-        DataReader testReading = new DataReader("read_test");
-        BabyNamesAnalysis q9 = new BabyNamesAnalysis(testReading);
+    assertEquals(expectedRankings, actualRankings);
+  }
 
-        String expectedMostVolatileName = "Yasser";
-        String actualMostVolatileName = q9.mostVolatileName(1111, 1113, "M");
+  @Test
+  void differenceInRank() throws Exception {
+    DataReader testReading = new DataReader("read_test");
+    BabyNamesAnalysis q8 = new BabyNamesAnalysis(testReading);
 
-        assertEquals(expectedMostVolatileName, actualMostVolatileName);
-    }
+    int expectedDifference = -1;
 
-    @Test
-    void averageRankForName() throws Exception {
-        DataReader testReading = new DataReader("read_test");
-        BabyNamesAnalysis q10 = new BabyNamesAnalysis(testReading);
+    int actualDifference = q8.differenceInRank(1111, 1113, "Isabella", "F");
 
-        double expectedAverageRank = 4.5;
-        double actualAverageRank = q10.averageRankForName("Yasser", "M", 1111, 1114);
+    assertEquals(expectedDifference, actualDifference);
+  }
 
-        assertEquals(expectedAverageRank, actualAverageRank);
-    }
+  @Test
+  void mostVolatileName() throws Exception {
+    DataReader testReading = new DataReader("read_test");
+    BabyNamesAnalysis q9 = new BabyNamesAnalysis(testReading);
 
-    @Test
-    void highestAverageRank() throws Exception {
-        DataReader testReading = new DataReader("read_test");
-        BabyNamesAnalysis q11 = new BabyNamesAnalysis(testReading);
+    String expectedMostVolatileName = "Yasser";
+    String actualMostVolatileName = q9.mostVolatileName(1111, 1113, "M");
 
-        String expectedHighestAverageRankedName = "Aohn";
-        String actualHighestAverageRankedName = q11.highestAverageRank(1115, 1117, "M");
+    assertEquals(expectedMostVolatileName, actualMostVolatileName);
+  }
 
-        assertEquals(expectedHighestAverageRankedName, actualHighestAverageRankedName);
-    }
+  @Test
+  void averageRankForName() throws Exception {
+    DataReader testReading = new DataReader("read_test");
+    BabyNamesAnalysis q10 = new BabyNamesAnalysis(testReading);
 
-    @Test
-    void recentAverageRank() throws Exception {
-        DataReader testReading = new DataReader("read_test");
-        BabyNamesAnalysis q12 = new BabyNamesAnalysis(testReading);
+    double expectedAverageRank = 4.5;
+    double actualAverageRank = q10.averageRankForName("Yasser", "M", 1111, 1114);
 
-        double expectedRecentAverageRank = 5.25;
-        double actualRecentAverageRank = q12.recentAverageRank("Yasser", "M", 4);
+    assertEquals(expectedAverageRank, actualAverageRank);
+  }
 
-        assertEquals(expectedRecentAverageRank, actualRecentAverageRank);
+  @Test
+  void highestAverageRank() throws Exception {
+    DataReader testReading = new DataReader("read_test");
+    BabyNamesAnalysis q11 = new BabyNamesAnalysis(testReading);
 
-    }
+    String expectedHighestAverageRankedName = "Aohn";
+    String actualHighestAverageRankedName = q11.highestAverageRank(1115, 1117, "M");
 
-    @Test
-    void namesAtRankInRange() throws Exception {
-        DataReader testReading = new DataReader("read_test");
-        BabyNamesAnalysis q13 = new BabyNamesAnalysis(testReading);
+    assertEquals(expectedHighestAverageRankedName, actualHighestAverageRankedName);
+  }
 
-        List<String> expectedNamesAtRankInRange = List.of("Aohn", "Alex", "Alex", "Alex", "Alex", "Aohn", "Flex");
-        List<String> actualNamesAtRankInRange = q13.namesAtRankInRange(1111, 1117, "M", 2);
+  @Test
+  void recentAverageRank() throws Exception {
+    DataReader testReading = new DataReader("read_test");
+    BabyNamesAnalysis q12 = new BabyNamesAnalysis(testReading);
 
-        assertEquals(expectedNamesAtRankInRange, actualNamesAtRankInRange);
+    double expectedRecentAverageRank = 5.25;
+    double actualRecentAverageRank = q12.recentAverageRank("Yasser", "M", 4);
 
-    }
+    assertEquals(expectedRecentAverageRank, actualRecentAverageRank);
 
-    @Test
-    void namesMostOftenAtRank() throws Exception {
-        DataReader testReading = new DataReader("read_test");
-        BabyNamesAnalysis q14 = new BabyNamesAnalysis(testReading);
+  }
 
-        Map<String, Double> expectedNamesMostOftenAtRank = new HashMap<>();
-        expectedNamesMostOftenAtRank.put("Alex", 4.0);
-        Map<String, Double> actualNamesMostOftenAtRank = q14.namesMostOftenAtRank(1111, 1116, "M", 2);
+  @Test
+  void namesAtRankInRange() throws Exception {
+    DataReader testReading = new DataReader("read_test");
+    BabyNamesAnalysis q13 = new BabyNamesAnalysis(testReading);
 
-        assertEquals(expectedNamesMostOftenAtRank, actualNamesMostOftenAtRank);
-    }
+    List<String> expectedNamesAtRankInRange = List
+        .of("Aohn", "Alex", "Alex", "Alex", "Alex", "Aohn", "Flex");
+    List<String> actualNamesAtRankInRange = q13.namesAtRankInRange(1111, 1117, "M", 2);
 
+    assertEquals(expectedNamesAtRankInRange, actualNamesAtRankInRange);
 
+  }
+
+  @Test
+  void namesMostOftenAtRank() throws Exception {
+    DataReader testReading = new DataReader("read_test");
+    BabyNamesAnalysis q14 = new BabyNamesAnalysis(testReading);
+
+    Map<String, Double> expectedNamesMostOftenAtRank = new HashMap<>();
+    expectedNamesMostOftenAtRank.put("Alex", 4.0);
+    Map<String, Double> actualNamesMostOftenAtRank = q14.namesMostOftenAtRank(1111, 1116, "M", 2);
+
+    assertEquals(expectedNamesMostOftenAtRank, actualNamesMostOftenAtRank);
+  }
 
 
 }
