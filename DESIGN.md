@@ -29,6 +29,7 @@ This is the link to the [assignment](http://www.cs.duke.edu/courses/compsci307/c
 - No commas in each line other than separators
 - All files from URL data source begin with "yob"
 - Format of data files is as stated
+- For questions involving calculations over a range of years, if a particular name is not found in every year in that range, it is omitted from the calculation
 
 ### Adding New Features
 - In order to add a new feature such as returning the meanings of names that are returned for certain questions I would utilize a HashTable. I would populate this HashTable utilizing the same DataReader class I utilized before in order to avoid duplicated and smelly code. Then, for every question that returned a name, I would call a method that I would create that would look up the names to be returned in the HashTable and append them as values in a Map in which the desired names for a given problem are the keys. 
