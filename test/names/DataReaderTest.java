@@ -30,13 +30,4 @@ class DataReaderTest {
 
     assertEquals(expectedYears, actualYears);
   }
-
-  @Test
-  void getYearFromFileName() throws Exception {
-    DataReader testReading = new DataReader("read_test", false);
-
-    int expectedYear = 2375;
-    int actualYear = testReading.getYearFromFileName("sdafhs2difsdbf3osdjnfs7kjndf5");
-    assertEquals(expectedYear, actualYear);
-  }
 }

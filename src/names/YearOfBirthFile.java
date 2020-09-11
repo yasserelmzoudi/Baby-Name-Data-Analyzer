@@ -89,7 +89,7 @@ public class YearOfBirthFile {
     return totalCount(namesLetter(gender, letter));
   }
 
-  public int totalCount(Set<Individual> people) {
+  private int totalCount(Set<Individual> people) {
     int totalCount = 0;
     for (Individual person : people) {
       totalCount += person.getOccurrences();
